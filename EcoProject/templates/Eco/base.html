@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+{% load eco_template_tags %}
+<html>
+
+<head>
+    <title>
+        Eco Challenge
+        {% block title_block %}
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+    <div>
+        {% block body_block %}
+        {% endblock %}
+    </div>
+    <div>
+        {% block sidebar_block %}
+        {% endblock %}
+    </div>
+
+    <hr />
+    <div>
+        <ul>
+            {% if user.is_authenticated %}
+            <!-- Show these links when the user is logged in -->
+            <li><a href="{% url 'Eco:restricted' %}">Restricted Page</a></li>
+            <li><a href="{% url 'Eco:logout' %}">Logout</a></li>
+            {% else %}
+            <!-- Show these links when the user is NOT logged in -->
+            <li><a href="{% url 'Eco:register' %}">Sign Up</a></li>
+            <li><a href="{% url 'Eco:login' %}">Login</a></li>
+            {% endif %}
+            <!-- Outside the conditional statements, ALWAYS show -->
+            <li><a href="{% url 'Eco:index' %}">Index</a></li>
+        </ul>
+
+    </div>
+
+</body>
+
+</html>

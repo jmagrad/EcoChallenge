@@ -1,0 +1,20 @@
+{% extends 'Eco/base.html' %}
+{% load static %}
+
+{% block title_block %}Homepage{% endblock %}
+
+{% block body_block %}
+<h1>Homepage</h1>
+<div>
+    {% if user.is_authenticated %}
+    Welcome {{ user.username }}!
+    {% else %}
+    Get ready to make the world a better place!
+    {% endif %}
+    <br />
+    <strong>{{ boldmessage }}</strong><br />
+</div>
+<div>
+    <img src="{% static 'images/Leaf.jpg' %}" alt="Leaf picture" />
+</div>
+{% endblock %}
