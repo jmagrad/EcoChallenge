@@ -1,0 +1,12 @@
+{% extends 'Eco/base.html' %}
+{% load static %}
+
+{% block title_block %}
+{% endblock %}
+
+{% block body_block %}
+<h1>Account Page</h1>
+{% if user.is_authenticated %}
+Welcome {{ user.username }}!
+{% endif %}
+{% endblock %}
