@@ -13,6 +13,14 @@
     {% endif %}
     <br />
     <strong>{{ boldmessage }}</strong><br />
+
+    <li><a href="{% url 'Eco:Challenges' %}">Challenges</a></li>
+    <li><a href="{% url 'Eco:EducationalLinks' %}">EducationalLinks</a></li>
+
+    {% if user.is_authenticated %}
+    <!-- Show these links when the user is logged in -->
+    <li><a href="{% url 'Eco:LeaderBoard' %}">LeaderBoard</a></li>
+    {% endif %}
 </div>
 <div>
     <img src="{% static 'images/Leaf.jpg' %}" alt="Leaf picture" />
