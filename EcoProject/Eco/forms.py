@@ -18,19 +18,19 @@ class UserProfileForm(forms.ModelForm):
 class ChallengeForm(forms.ModelForm):
     class Meta:
         model = Challenge
-        fields = ('title', 'description','PointValue',)
+        fields = ('title', 'description','point_value',)
 
 class UserChallengeLogEntryForm(forms.ModelForm):
     class Meta:
         model = User_Challenge_Log_Entry
-        fields = ('user', 'challenge', 'date_logged',)
+        fields = ('user', 'challenge', )
 
 class SubmittedChallengeForm(forms.ModelForm):
     class Meta:
         model = Submitted_Challenge
-        fields = ('user', 'challenge', 'date_submitted',)
+        fields = ('user', 'challenge',)
 
 class LeaderboardForm(forms.ModelForm):
     class Meta:
         model = Leaderboard
-        fields = ('user', 'rank', 'date_recorded',)
+        fields = ('user', 'rank',)
