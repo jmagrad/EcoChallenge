@@ -17,6 +17,7 @@ class Challenge(models.Model):
     TITLE_MAX_LENGTH = 128
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
     description = models.TextField()
+    point_value = models.IntegerField()
     users = models.ManyToManyField(User, through='User_Challenge_Log_Entry')
     
     def __str__(self):
