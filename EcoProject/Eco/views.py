@@ -133,3 +133,13 @@ def user_logout(request):
     logout(request)
     # Take the user back to the homepage.
     return redirect(reverse('Eco:index'))
+
+def challenges(request):
+    return render(request, 'Eco/challenges.html')
+
+def educational_links(request):
+    return render(request, 'Eco/EducationalLinks.html')
+
+@login_required
+def leaderboard(request):
+    return render(request, 'Eco/leaderboard.html')
