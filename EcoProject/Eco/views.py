@@ -10,6 +10,9 @@ from django.urls import reverse
 from Eco.forms import UserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from Eco.models import Challenge
+from django.utils import timezone
+from datetime import timedelta
+from Eco.models import UserProfile
 
 
 def index(request):
@@ -152,4 +155,22 @@ def educational_links(request):
 
 @login_required
 def leaderboard(request):
-    return render(request, 'Eco/leaderboard.html')
+    timeframe = request.GET.get('timeframe', 'all')
+    if timeframe == 'month':
+        days = 30
+    elif timeframe == 'year':
+        days = 365
+    else:
+        days = None
+
+    if days:
+        users = UserProfile.objects.all()
+        users = sorted(users, key=lambda u: u.points_within_timeframe(days), reverse=True)
+    else:
+        users = UserProfile.objects.all().order_by('-points')
+
+    context_dict = {
+        'users': users,
+        'timeframe': timeframe,
+    }
+    return render(request, 'Eco/leaderboard.html', context=context_dict)

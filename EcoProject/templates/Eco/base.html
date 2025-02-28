@@ -31,7 +31,7 @@
         <ul>
             {% if user.is_authenticated %}
             <!-- Show these links when the user is logged in -->
-            <li><a href="{% url 'Eco:restricted' %}">Restricted Page</a></li>
+            <li><a href="{% url 'Eco:LeaderBoard' %}">LeaderBoard</a></li>
             <li><a href="{% url 'Eco:logout' %}">Logout</a></li>
             {% else %}
             <!-- Show these links when the user is NOT logged in -->
