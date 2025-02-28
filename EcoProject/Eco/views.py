@@ -1,4 +1,3 @@
-
 # Create your views here.
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
@@ -10,6 +9,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from Eco.forms import UserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
+from Eco.models import Challenge
 
 
 def index(request):
@@ -135,7 +135,16 @@ def user_logout(request):
     return redirect(reverse('Eco:index'))
 
 def challenges(request):
-    return render(request, 'Eco/challenges.html')
+    # Get all challenges from the database
+    challenges_list = Challenge.objects.all()
+    
+    # Create context dictionary to pass to the template
+    context_dict = {
+        'challenges': challenges_list,
+    }
+    
+    # Render the response and send it back
+    return render(request, 'Eco/challenges.html', context=context_dict)
 
 def educational_links(request):
     return render(request, 'Eco/EducationalLinks.html')

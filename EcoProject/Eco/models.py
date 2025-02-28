@@ -10,6 +10,8 @@ class UserProfile(models.Model):
     # The additional attributes we wish to include.
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
+    points = models.IntegerField(default=0)  # Add this line to include points field
+
     def __str__(self):
         return self.user.username
     
