@@ -5,6 +5,12 @@ Challenges Page
 {% endblock %}
 {% block body_block %}
 <h1>Challenges Page</h1>
+
+<form method="GET" action="{% url 'Eco:Challenges' %}">
+    <input type="text" name="q" placeholder="Search challenges by title">
+    <button type="submit">Search</button>
+</form>
+
 <ul>
     {% for challenge in challenges %}
     <li>

@@ -135,15 +135,16 @@ def user_logout(request):
     return redirect(reverse('Eco:index'))
 
 def challenges(request):
-    # Get all challenges from the database
-    challenges_list = Challenge.objects.all()
+    query = request.GET.get('q')
+    if query:
+        challenges_list = Challenge.objects.filter(title__icontains=query)
+    else:
+        challenges_list = Challenge.objects.all()
     
-    # Create context dictionary to pass to the template
     context_dict = {
         'challenges': challenges_list,
     }
     
-    # Render the response and send it back
     return render(request, 'Eco/challenges.html', context=context_dict)
 
 def educational_links(request):
