@@ -1,4 +1,3 @@
-
 # Create your views here.
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
@@ -10,6 +9,10 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from Eco.forms import UserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
+from Eco.models import Challenge
+from django.utils import timezone
+from datetime import timedelta
+from Eco.models import UserProfile
 
 
 def index(request):
@@ -135,11 +138,39 @@ def user_logout(request):
     return redirect(reverse('Eco:index'))
 
 def challenges(request):
-    return render(request, 'Eco/challenges.html')
+    query = request.GET.get('q')
+    if query:
+        challenges_list = Challenge.objects.filter(title__icontains=query)
+    else:
+        challenges_list = Challenge.objects.all()
+    
+    context_dict = {
+        'challenges': challenges_list,
+    }
+    
+    return render(request, 'Eco/challenges.html', context=context_dict)
 
 def educational_links(request):
     return render(request, 'Eco/EducationalLinks.html')
 
 @login_required
 def leaderboard(request):
-    return render(request, 'Eco/leaderboard.html')
+    timeframe = request.GET.get('timeframe', 'all')
+    if timeframe == 'month':
+        days = 30
+    elif timeframe == 'year':
+        days = 365
+    else:
+        days = None
+
+    if days:
+        users = UserProfile.objects.all()
+        users = sorted(users, key=lambda u: u.points_within_timeframe(days), reverse=True)
+    else:
+        users = UserProfile.objects.all().order_by('-points')
+
+    context_dict = {
+        'users': users,
+        'timeframe': timeframe,
+    }
+    return render(request, 'Eco/leaderboard.html', context=context_dict)

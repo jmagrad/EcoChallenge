@@ -1,6 +1,8 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from datetime import timedelta
+from django.utils import timezone
 
 # Create your models here.
     
@@ -10,9 +12,17 @@ class UserProfile(models.Model):
     # The additional attributes we wish to include.
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
+    points = models.IntegerField(default=0)  # Add this line to include points field
+
     def __str__(self):
         return self.user.username
     
+    def points_within_timeframe(self, days):
+        end_date = timezone.now()
+        start_date = end_date - timedelta(days=days)
+        log_entries = User_Challenge_Log_Entry.objects.filter(user=self.user, date_logged__range=(start_date, end_date))
+        return sum(entry.challenge.point_value for entry in log_entries)
+
 class Challenge(models.Model):
     TITLE_MAX_LENGTH = 128
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
