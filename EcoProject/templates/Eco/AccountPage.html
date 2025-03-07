@@ -2,11 +2,19 @@
 {% load static %}
 
 {% block title_block %}
+Account Page
 {% endblock %}
 
 {% block body_block %}
 <h1>Account Page</h1>
 {% if user.is_authenticated %}
-Welcome {{ user.username }}!
+<p>Welcome {{ user.username }}!</p>
+<p>Email: {{ user.email }}</p>
+{% if user_profile.picture %}
+<img src="{{ user_profile.picture.url }}" alt="Profile Picture" />
+{% else %}
+<p>No profile picture uploaded.</p>
+{% endif %}
+<p>Points: {{ user_profile.points }}</p>
 {% endif %}
 {% endblock %}
