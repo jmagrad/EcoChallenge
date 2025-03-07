@@ -174,3 +174,13 @@ def leaderboard(request):
         'timeframe': timeframe,
     }
     return render(request, 'Eco/leaderboard.html', context=context_dict)
+
+
+@login_required
+def account_page(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    context_dict = {
+        'user': request.user,
+        'user_profile': user_profile,
+    }
+    return render(request, 'Eco/AccountPage.html', context=context_dict)
