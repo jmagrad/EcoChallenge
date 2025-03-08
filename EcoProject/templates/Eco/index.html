@@ -4,25 +4,21 @@
 {% block title_block %}Homepage{% endblock %}
 
 {% block body_block %}
-<h1>Homepage</h1>
+<h1>Eco Challenge</h1>
 <div>
     {% if user.is_authenticated %}
-    Welcome {{ user.username }}!
+        Welcome {{ user.username }}!
     {% else %}
-    Get ready to make the world a better place!
+        Get ready to make the world a better place!
     {% endif %}
     <br />
-    <strong>{{ boldmessage }}</strong><br />
+    <ul>
+        <li><a href="{% url 'Eco:Challenges' %}">Challenges</a></li>
+        <li><a href="{% url 'Eco:Educational Links' %}">Educational Links</a></li>
 
-    <li><a href="{% url 'Eco:Challenges' %}">Challenges</a></li>
-    <li><a href="{% url 'Eco:Educational Links' %}">EducationalLinks</a></li>
-
-    {% if user.is_authenticated %}
-    <!-- Show these links when the user is logged in -->
-    <li><a href="{% url 'Eco:LeaderBoard' %}">LeaderBoard</a></li>
-    {% endif %}
-</div>
-<div>
-    <img src="{% static 'images/Leaf.jpg' %}" alt="Leaf picture" />
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'Eco:LeaderBoard' %}">LeaderBoard</a></li>
+        {% endif %}
+    </ul>
 </div>
 {% endblock %}

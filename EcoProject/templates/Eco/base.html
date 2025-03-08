@@ -11,39 +11,82 @@
     </title>
     <style>
         body {
-            background-color: #ccffcc;
+            background-image: url("{% static 'images/Leaf_alt.png' %}"); /* @Colin: Pic from the slides */
+            background-size: cover; /* @Colin: This works for full screen and quarter screen...but not half screen. See note below */
+            background-position: center; 
+            background-repeat: no-repeat; 
+            height: 100vh; 
+            margin: 0;
+            padding: 0;
+        }
+
+        /* @Colin: Once we have the site more developed, we can find a way to control how the background
+            image appears on different screen sizes. Contain, rather than cover, looks good on half screen
+            but messy on full and quarter screen. I think an @media conditional will work. I will look into it
+            */
+
+        a, a.nav-link {
+            color: white !important; /* @Colin: Brute-forcing this with !important, to ensure consistency*/
+            text-decoration: none !important; 
+        }
+
+        a:hover, a.nav-link:hover {
+            color: rgb(45, 216, 29) !important; 
+            text-decoration: none !important;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .cover-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: auto;
+            padding: 10px;
         }
     </style>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <div>
-        {% block body_block %}
-        {% endblock %}
-    </div>
-    <div>
-        {% block sidebar_block %}
-        {% endblock %}
+<body class="d-flex h-100 text-left text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">Eco Challenge</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link" href="{% url 'Eco:index' %}">Home</a>
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'Eco:LeaderBoard' %}">LeaderBoard</a>
+                        <a class="nav-link" href="{% url 'Eco:logout' %}">Logout</a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'Eco:register' %}">Sign Up</a>
+                        <a class="nav-link" href="{% url 'Eco:login' %}">Login</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
+
+        <main class="px-3">
+            {% block body_block %}
+            <!-- Main content goes here -->
+            {% endblock %}
+        </main>
+
+        <footer class="mt-auto text-white-50">
+            <p>© 2025 Eco Challenge...to look legit</p>
+        </footer>
+
     </div>
 
-    <hr />
-    <div>
-        <ul>
-            {% if user.is_authenticated %}
-            <!-- Show these links when the user is logged in -->
-            <li><a href="{% url 'Eco:LeaderBoard' %}">LeaderBoard</a></li>
-            <li><a href="{% url 'Eco:logout' %}">Logout</a></li>
-            {% else %}
-            <!-- Show these links when the user is NOT logged in -->
-            <li><a href="{% url 'Eco:register' %}">Sign Up</a></li>
-            <li><a href="{% url 'Eco:login' %}">Login</a></li>
-            {% endif %}
-            <!-- Outside the conditional statements, ALWAYS show -->
-            <li><a href="{% url 'Eco:index' %}">Index</a></li>
-        </ul>
-
-    </div>
-
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
