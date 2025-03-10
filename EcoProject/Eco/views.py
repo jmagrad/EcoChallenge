@@ -16,6 +16,7 @@ from django.utils import timezone
 from datetime import timedelta
 from Eco.models import UserProfile
 from django.http import JsonResponse
+from django.db.models import Q
 
 
 def index(request):
@@ -26,8 +27,6 @@ def index(request):
 
     # Render the response and send it back!
     return render(request, 'Eco/index.html', context=context_dict)
-
-
 
 def register(request):
     # A boolean value for telling the template
@@ -143,7 +142,10 @@ def user_logout(request):
 def challenges(request):
     query = request.GET.get('q')
     if query:
-        challenges_list = Challenge.objects.filter(title__icontains=query)
+        challenges_list = Challenge.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) 
+        )
     else:
         challenges_list = Challenge.objects.all()
     
