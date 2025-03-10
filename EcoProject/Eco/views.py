@@ -15,6 +15,7 @@ from Eco.models import Challenge
 from django.utils import timezone
 from datetime import timedelta
 from Eco.models import UserProfile
+from django.http import JsonResponse
 
 
 def index(request):
@@ -194,10 +195,9 @@ def update_email(request):
     if new_email:
         request.user.email = new_email
         request.user.save()
-        messages.success(request, 'Email updated successfully.')
+        return JsonResponse({'message': 'Email updated successfully.'})
     else:
-        messages.error(request, 'Invalid email.')
-    return redirect('account_page')
+        return JsonResponse({'error': 'Invalid email.'}, status=400)
 
 @login_required
 @require_POST
@@ -206,7 +206,6 @@ def update_picture(request):
         user_profile = UserProfile.objects.get(user=request.user)
         user_profile.picture = request.FILES['picture']
         user_profile.save()
-        messages.success(request, 'Profile picture updated successfully.')
+        return JsonResponse({'message': 'Profile picture updated successfully.'})
     else:
-        messages.error(request, 'No picture uploaded.')
-    return redirect('account_page')
+        return JsonResponse({'error': 'No picture uploaded.'}, status=400)
