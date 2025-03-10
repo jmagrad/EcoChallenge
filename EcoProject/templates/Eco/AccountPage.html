@@ -7,7 +7,7 @@ Account Page
 
 {% block body_block %}
 
-<div class="row">
+<div class="row top-cards">
     <div class="col-lg-4">
         <div class="card mb-4">
             <div class="card-body text-center">
@@ -72,39 +72,143 @@ Account Page
         </div>
     </div>
 </div>
+
+<!-- New row for Points Overview and Challenges Logged cards -->
+<div class="row">
+    <!-- Points Overview card -->
+    <div class="col-lg-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <p class="mb-4"><span class="text-primary font-italic me-1"></span> Points Overview</p>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0" style="font-size: .77rem;">All Time</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{points_all_time}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0" style="font-size: .77rem;">This Year</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{points_year}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0" style="font-size: .77rem;">This Month</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{points_month}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0" style="font-size: .77rem;">This Week</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{points_week}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenges Logged card -->
+    <div class="col-lg-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <p class="mb-4"><span class="text-primary font-italic me-1"></span> Challenges Logged</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="mb-0" style="font-size: .77rem;">Challenge</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="mb-0" style="font-size: .77rem;">Date Logged</p>
+                    </div>
+                </div>
+                <hr>
+                {% for challenge in challenges %}
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="text-muted mb-0">{{ challenge.name }}</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="text-muted mb-0">{{ challenge.date_logged }}</p>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal for updating email -->
-<div id="update-email-modal" style="display:none;">
-    <form id="update-email-form" method="post" action="{% url 'Eco:update_email' %}">
-        {% csrf_token %}
-        <label for="email">New Email:</label>
-        <input type="email" id="email" name="email" required>
-        <button type="submit">Update Email</button>
-    </form>
+<div id="update-email-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Email</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="update-email-form" method="post" action="{% url 'Eco:update_email' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email">New Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Email</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Modal for updating profile picture -->
-<div id="update-picture-modal" style="display:none;">
-    <form id="update-picture-form" method="post" action="{% url 'Eco:update_picture' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="picture">New Profile Picture:</label>
-        <input type="file" id="picture" name="picture" accept="image/*" required>
-        <button type="submit">Update Picture</button>
-    </form>
+<div id="update-picture-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Profile Picture</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="update-picture-form" method="post" action="{% url 'Eco:update_picture' %}"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="picture">New Profile Picture:</label>
+                        <input type="file" id="picture" name="picture" class="form-control" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Picture</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- jQuery library -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
     $(document).ready(function () {
         $('#update-picture-btn').click(function () {
-            $('#update-picture-modal').show();
+            $('#update-picture-modal').modal('show');
         });
 
         $('#update-email-btn').click(function () {
-            $('#update-email-modal').show();
+            $('#update-email-modal').modal('show');
         });
 
         $('#update-picture-form').submit(function (event) {

@@ -182,9 +182,18 @@ def leaderboard(request):
 @login_required
 def account_page(request):
     user_profile = UserProfile.objects.get(user=request.user)
+    points_all_time = user_profile.points
+    points_year = user_profile.points_within_timeframe(365)
+    points_month = user_profile.points_within_timeframe(30)
+    points_week = user_profile.points_within_timeframe(7)
+    
     context_dict = {
         'user': request.user,
         'user_profile': user_profile,
+        'points_all_time': points_all_time,
+        'points_year': points_year,
+        'points_month': points_month,
+        'points_week': points_week,
     }
     return render(request, 'Eco/AccountPage.html', context=context_dict)
 
