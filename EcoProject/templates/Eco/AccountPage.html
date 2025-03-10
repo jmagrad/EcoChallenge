@@ -6,19 +6,73 @@ Account Page
 {% endblock %}
 
 {% block body_block %}
-<h1>Account Page</h1>
-{% if user.is_authenticated %}
-<p>Welcome {{ user.username }}!</p>
-<p>Email: {{ user.email }} <button id="update-email-btn">Update Email</button></p>
-{% if user_profile.picture %}
-<img src="{{ user_profile.picture.url }}" alt="Profile Picture" />
-<button id="update-picture-btn">Update Picture</button>
-{% else %}
-<p>No profile picture uploaded.</p>
-<button id="update-picture-btn">Upload Picture</button>
-{% endif %}
-<p>Points: {{ user_profile.points }}</p>
-{% endif %}
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                {% if user_profile.picture %}
+                <img src="{{ user_profile.picture.url }}" alt="avatar" class="rounded-circle img-fluid"
+                    style="width: 150px;">
+                {% else %}
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                    class="rounded-circle img-fluid" style="width: 150px;">
+                {% endif %}
+                <h5 class="my-3">{{ user.username }}</h5>
+                <p class="text-muted mb-1">{{ user_profile.website }}</p>
+                <p class="text-muted mb-4">Points: {{ user_profile.points }}</p>
+                <div class="d-flex justify-content-center mb-2">
+                    <button type="button" class="btn btn-primary" id="update-picture-btn">Update
+                        Picture</button>
+                    <button type="button" class="btn btn-outline-primary ms-1" id="update-email-btn">Update
+                        Email</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Full Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{ user.get_full_name }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{ user.email }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Website</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{ user_profile.website }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Points</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-muted mb-0">{{ user_profile.points }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 <!-- Modal for updating email -->
 <div id="update-email-modal" style="display:none;">
@@ -49,6 +103,10 @@ Account Page
             $('#update-picture-modal').show();
         });
 
+        $('#update-email-btn').click(function () {
+            $('#update-email-modal').show();
+        });
+
         $('#update-picture-form').submit(function (event) {
             event.preventDefault();
             var formData = new FormData(this);
@@ -64,6 +122,22 @@ Account Page
                 },
                 error: function (response) {
                     alert('An error occurred while updating the profile picture');
+                }
+            });
+        });
+
+        $('#update-email-form').submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (response) {
+                    alert('Email updated successfully');
+                    location.reload();
+                },
+                error: function (response) {
+                    alert('An error occurred while updating the email');
                 }
             });
         });
