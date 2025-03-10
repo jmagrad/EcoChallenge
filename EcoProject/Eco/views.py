@@ -5,6 +5,7 @@ from django.contrib.auth import logout
 
 from django.shortcuts import render
 #forms imports
+from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.urls import reverse
 from Eco.forms import UserForm, UserProfileForm
@@ -17,6 +18,8 @@ from datetime import timedelta
 from Eco.models import UserProfile
 from django.http import JsonResponse
 from django.db.models import Q
+from .models import Challenge, User_Challenge_Log_Entry
+from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
@@ -159,6 +162,16 @@ def educational_links(request):
     return render(request, 'Eco/EducationalLinks.html')
 
 @login_required
+def log_challenge(request, challenge_id):
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        User_Challenge_Log_Entry.objects.create(user=request.user, challenge=challenge)
+        user_profile = UserProfile.objects.get(user=request.user)
+        user_profile.points += challenge.point_value
+        user_profile.save()
+        return redirect('Eco:Challenges')
+
+
+@login_required
 def leaderboard(request):
     timeframe = request.GET.get('timeframe', 'all')
     if timeframe == 'month':
@@ -188,6 +201,7 @@ def account_page(request):
     points_year = user_profile.points_within_timeframe(365)
     points_month = user_profile.points_within_timeframe(30)
     points_week = user_profile.points_within_timeframe(7)
+    user_challenge_log_entries = User_Challenge_Log_Entry.objects.filter(user=request.user)
     
     context_dict = {
         'user': request.user,
@@ -196,6 +210,7 @@ def account_page(request):
         'points_year': points_year,
         'points_month': points_month,
         'points_week': points_week,
+        'user_challenge_log_entries': user_challenge_log_entries,
     }
     return render(request, 'Eco/AccountPage.html', context=context_dict)
 
