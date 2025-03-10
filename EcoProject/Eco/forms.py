@@ -23,7 +23,7 @@ class ChallengeForm(forms.ModelForm):
 class UserChallengeLogEntryForm(forms.ModelForm):
     class Meta:
         model = User_Challenge_Log_Entry
-        fields = ('user', 'challenge', )
+        fields = ('user', 'challenge',)
 
 class SubmittedChallengeForm(forms.ModelForm):
     class Meta:
