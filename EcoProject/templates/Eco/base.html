@@ -50,27 +50,6 @@
             padding-top: 0; /* Ensure there's no extra padding */
         }
 
-        .sidebar {
-            height: 100vh;
-            background-color: #222;
-            color: white;
-            padding: 15px;
-        }
-
-        .sidebar a {
-            display: block;
-            margin: 10px 0;
-            color: white;
-            text-decoration: none;
-        }
-
-        .sidebar a:hover {
-            color: rgb(45, 216, 29);
-        } 
-
-        .content {
-            padding: 20px;
-        }
 
         footer {
             text-align: center;
@@ -103,19 +82,12 @@
             </div>
         </header>
 
-        <div class="d-flex">
-            <!-- Sidebar just in case we decide we need this for any pages?-->
-            <div class="sidebar col-md-1 bg-dark bg-opacity-10">
-                 
-            </div>
 
-            <!-- Main content -->
-            <main class="content px-3">
-                {% block body_block %}
-                <!-- Main content goes here -->
-                {% endblock %}
-            </main>
-        </div>
+        <main class="px-3">
+            {% block body_block %}
+            <!-- Main content goes here -->
+            {% endblock %}
+        </main>
 
         <footer class="mt-auto text-white-50">
             <p>© 2025 Eco Challenge</p>
