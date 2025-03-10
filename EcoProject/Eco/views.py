@@ -9,10 +9,13 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from Eco.forms import UserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.contrib import messages
 from Eco.models import Challenge
 from django.utils import timezone
 from datetime import timedelta
 from Eco.models import UserProfile
+from django.http import JsonResponse
 from django.db.models import Q
 
 
@@ -176,3 +179,44 @@ def leaderboard(request):
         'timeframe': timeframe,
     }
     return render(request, 'Eco/leaderboard.html', context=context_dict)
+
+
+@login_required
+def account_page(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    points_all_time = user_profile.points
+    points_year = user_profile.points_within_timeframe(365)
+    points_month = user_profile.points_within_timeframe(30)
+    points_week = user_profile.points_within_timeframe(7)
+    
+    context_dict = {
+        'user': request.user,
+        'user_profile': user_profile,
+        'points_all_time': points_all_time,
+        'points_year': points_year,
+        'points_month': points_month,
+        'points_week': points_week,
+    }
+    return render(request, 'Eco/AccountPage.html', context=context_dict)
+
+@login_required
+@require_POST
+def update_email(request):
+    new_email = request.POST.get('email')
+    if new_email:
+        request.user.email = new_email
+        request.user.save()
+        return JsonResponse({'message': 'Email updated successfully.'})
+    else:
+        return JsonResponse({'error': 'Invalid email.'}, status=400)
+
+@login_required
+@require_POST
+def update_picture(request):
+    if 'picture' in request.FILES:
+        user_profile = UserProfile.objects.get(user=request.user)
+        user_profile.picture = request.FILES['picture']
+        user_profile.save()
+        return JsonResponse({'message': 'Profile picture updated successfully.'})
+    else:
+        return JsonResponse({'error': 'No picture uploaded.'}, status=400)
