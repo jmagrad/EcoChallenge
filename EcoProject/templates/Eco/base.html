@@ -45,6 +45,33 @@
             min-height: 100vh;
         }
 
+        main {
+            margin-top: 0; /* Remove any margin at the top */
+            padding-top: 0; /* Ensure there's no extra padding */
+        }
+
+        .sidebar {
+            height: 100vh;
+            background-color: #222;
+            color: white;
+            padding: 15px;
+        }
+
+        .sidebar a {
+            display: block;
+            margin: 10px 0;
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            color: rgb(45, 216, 29);
+        } 
+
+        .content {
+            padding: 20px;
+        }
+
         footer {
             text-align: center;
             margin-top: auto;
@@ -63,9 +90,12 @@
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     <a class="nav-link" href="{% url 'Eco:index' %}">Home</a>
                     {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'Eco:Challenges' %}">Challenges</a>
                         <a class="nav-link" href="{% url 'Eco:LeaderBoard' %}">LeaderBoard</a>
                         <a class="nav-link" href="{% url 'Eco:logout' %}">Logout</a>
                     {% else %}
+                        <a class="nav-link" href="{% url 'Eco:Challenges' %}">Challenges</a>
+                        <a class="nav-link" href="{% url 'Eco:LeaderBoard' %}">LeaderBoard</a>
                         <a class="nav-link" href="{% url 'Eco:register' %}">Sign Up</a>
                         <a class="nav-link" href="{% url 'Eco:login' %}">Login</a>
                     {% endif %}
@@ -73,14 +103,22 @@
             </div>
         </header>
 
-        <main class="px-3">
-            {% block body_block %}
-            <!-- Main content goes here -->
-            {% endblock %}
-        </main>
+        <div class="d-flex">
+            <!-- Sidebar just in case we decide we need this for any pages?-->
+            <div class="sidebar col-md-1 bg-dark bg-opacity-10">
+                 
+            </div>
+
+            <!-- Main content -->
+            <main class="content px-3">
+                {% block body_block %}
+                <!-- Main content goes here -->
+                {% endblock %}
+            </main>
+        </div>
 
         <footer class="mt-auto text-white-50">
-            <p>© 2025 Eco Challenge...to look legit</p>
+            <p>© 2025 Eco Challenge</p>
         </footer>
 
     </div>
