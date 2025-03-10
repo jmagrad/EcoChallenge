@@ -4,24 +4,28 @@
 {% block title_block %}Homepage{% endblock %}
 
 {% block body_block %}
-<h1>Eco Challenge</h1>
-<div>
-    {% if user.is_authenticated %}
-        Welcome {{ user.username }}!
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">This is Eco Challenge</h1>
+      {% if user.is_authenticated %}
+      <p class="lead">Welcome back, {{ user.username }}!</p>
     {% else %}
-        Get ready to make the world a better place!
+    <p class="lead">Get ready to make the world a better place!</p>
     {% endif %}
     <br />
-
-    <ul>
-        <li><a href="{% url 'Eco:Challenges' %}">Challenges</a></li>
-        <li><a href="{% url 'Eco:Educational Links' %}">Educational Links</a></li>
-
     {% if user.is_authenticated %}
-    <!-- Show these links when the user is logged in -->
-    <li><a href="{% url 'Eco:LeaderBoard' %}">LeaderBoard</a></li>
-    <li><a href="{% url 'Eco:AccountPage' %}">Account Page</a></li>
+    <p class="lead fs-6">We make it fun to go green. </p>
+    <p class="lead fs-6">Check out where you rank on the <a href="{% url 'Eco:LeaderBoard' %}">leaderboard</a>. 
+        Are you ready for another <a href="{% url 'Eco:Challenges' %}">challenge</a>?</p>
+    <p class="lead fs-6">There is always more you can do. Would you like to have another look at these 
+        <a href="{% url 'Eco:Educational Links' %}">educational links</a>?</p>    
+    {% else %}
+    <p class="lead fs-6">We make it fun to go green. <a href="{% url 'Eco:register' %}">Sign up</a> to join 
+        one of our <a href="{% url 'Eco:Challenges' %}">challenges</a> today.</p>
+    <p class="lead fs-6">Want to know how you can make a difference? Check out these 
+        <a href="{% url 'Eco:Educational Links' %}">educational links</a> to learn more.</p>
     {% endif %}
     </ul>
-</div>
+</div> 
 {% endblock %}
