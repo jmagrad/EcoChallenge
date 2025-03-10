@@ -12,6 +12,8 @@ urlpatterns = [
     path('EducationalLinks/', views.educational_links, name='Educational Links'),
     path('LeaderBoard/', views.leaderboard, name='LeaderBoard'),
     path('AccountPage/', views.account_page, name='AccountPage'),
+    path('update_email/', views.update_email, name='update_email'),
+    path('update_picture/', views.update_picture, name='update_picture'),
 
 ]
 

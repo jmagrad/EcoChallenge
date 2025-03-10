@@ -9,12 +9,48 @@ Account Page
 <h1>Account Page</h1>
 {% if user.is_authenticated %}
 <p>Welcome {{ user.username }}!</p>
-<p>Email: {{ user.email }}</p>
+<p>Email: {{ user.email }} <button id="update-email-btn">Update Email</button></p>
 {% if user_profile.picture %}
 <img src="{{ user_profile.picture.url }}" alt="Profile Picture" />
+<button id="update-picture-btn">Update Picture</button>
 {% else %}
 <p>No profile picture uploaded.</p>
+<button id="update-picture-btn">Upload Picture</button>
 {% endif %}
 <p>Points: {{ user_profile.points }}</p>
 {% endif %}
+
+<!-- Modal for updating email -->
+<div id="update-email-modal" style="display:none;">
+    <form id="update-email-form" method="post" action="{% url 'update_email' %}">
+        {% csrf_token %}
+        <label for="email">New Email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Update Email</button>
+    </form>
+</div>
+
+<!-- Modal for updating profile picture -->
+<div id="update-picture-modal" style="display:none;">
+    <form id="update-picture-form" method="post" action="{% url 'update_picture' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="picture">New Profile Picture:</label>
+        <input type="file" id="picture" name="picture" accept="image/*" required>
+        <button type="submit">Update Picture</button>
+    </form>
+</div>
+
 {% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#update-email-btn').click(function () {
+            $('#update-email-modal').show();
+        });
+
+        $('#update-picture-btn').click(function () {
+            $('#update-picture-modal').show();
+        });
+    });
+</script>

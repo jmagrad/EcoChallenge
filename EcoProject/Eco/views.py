@@ -9,6 +9,8 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from Eco.forms import UserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.contrib import messages
 from Eco.models import Challenge
 from django.utils import timezone
 from datetime import timedelta
@@ -184,3 +186,27 @@ def account_page(request):
         'user_profile': user_profile,
     }
     return render(request, 'Eco/AccountPage.html', context=context_dict)
+
+@login_required
+@require_POST
+def update_email(request):
+    new_email = request.POST.get('email')
+    if new_email:
+        request.user.email = new_email
+        request.user.save()
+        messages.success(request, 'Email updated successfully.')
+    else:
+        messages.error(request, 'Invalid email.')
+    return redirect('account_page')
+
+@login_required
+@require_POST
+def update_picture(request):
+    if 'picture' in request.FILES:
+        user_profile = UserProfile.objects.get(user=request.user)
+        user_profile.picture = request.FILES['picture']
+        user_profile.save()
+        messages.success(request, 'Profile picture updated successfully.')
+    else:
+        messages.error(request, 'No picture uploaded.')
+    return redirect('account_page')
