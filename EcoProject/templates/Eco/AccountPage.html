@@ -192,52 +192,5 @@ Account Page
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('#update-picture-btn').click(function () {
-            $('#update-picture-modal').modal('show');
-        });
-
-        $('#update-email-btn').click(function () {
-            $('#update-email-modal').modal('show');
-        });
-
-        $('#update-picture-form').submit(function (event) {
-            event.preventDefault();
-            var formData = new FormData(this);
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    alert('Profile picture updated successfully');
-                    location.reload();
-                },
-                error: function (response) {
-                    alert('An error occurred while updating the profile picture');
-                }
-            });
-        });
-
-        $('#update-email-form').submit(function (event) {
-            event.preventDefault();
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function (response) {
-                    alert('Email updated successfully');
-                    location.reload();
-                },
-                error: function (response) {
-                    alert('An error occurred while updating the email');
-                }
-            });
-        });
-    });
-</script>
-
+<script src="{% static 'js/scripts.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,79 @@
+/* Styles from base.html */
+body {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+a,
+a.nav-link {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+a:hover,
+a.nav-link:hover {
+    color: rgb(45, 216, 29) !important;
+    text-decoration: none !important;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-muted {
+    color: white !important;
+}
+
+.cover-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+footer {
+    text-align: center;
+    margin-top: auto;
+    padding: 10px;
+}
+
+/* Styles from Challenges.html */
+textarea {
+    height: 20px;
+}
+
+/* Styles from LeaderBoard.html */
+.table-dark {
+    margin: 0 auto;
+    width: 50%;
+}
+
+select {
+    font-size: 1.5em;
+    padding: 0.5em;
+    background-color: #228B22;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
+.leaderboard-container {
+    text-align: center;
+}
+
+/* Styles for links in index.html */
+a.green-link {
+    color: green;
+    font-weight: bold;
+    text-decoration: underline;
+}

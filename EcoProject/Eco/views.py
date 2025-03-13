@@ -273,6 +273,7 @@ def like_challenge(request):
         challenge_id = request.POST.get('challenge_id')
         challenge = get_object_or_404(Challenge, id=challenge_id)
         user = request.user
+        # Check if the user has already liked the challenge
         if not User_Challenge_Log_Entry.objects.filter(user=user, challenge=challenge).exists():
             challenge.likes += 1
             challenge.save()

@@ -9,7 +9,7 @@ LeaderBoard Page
 <div style="text-align: center;">
     <h2>Leaderboard</h2>
 
-    <table class="table table-dark" style="margin: 0 auto; width: 50%;">
+    <table class="table table-dark">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -28,8 +28,7 @@ LeaderBoard Page
         </tbody>
     </table>
     <form method="get" style="text-align: center;">
-        <select name="timeframe" onchange="this.form.submit()"
-            style="font-size: 1.5em; padding: 0.5em; background-color: #228B22; color: white;">
+        <select name="timeframe" onchange="this.form.submit()">
             <option value="all" {% if timeframe == "all" %}selected{% endif %}>All Time</option>
             <option value="week" {% if timeframe == "week" %}selected{% endif %}>Past Week</option>
             <option value="month" {% if timeframe == "month" %}selected{% endif %}>Past Month</option>
@@ -37,17 +36,5 @@ LeaderBoard Page
         </select>
     </form>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.filter-btn').click(function () {
-            var timeframe = $(this).data('timeframe');
-            $.get("{% url 'Eco:LeaderBoard' %}", { timeframe: timeframe }, function (data) {
-                $('#leaderboard-list').html(data);
-            });
-        });
-    });
-</script>
 
 {% endblock %}
