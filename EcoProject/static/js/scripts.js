@@ -7,6 +7,24 @@ $(document).ready(function () {
         }
     });
 
+    $('.like-challenge-btn').off('click').on('click', function () {
+        var challengeId = $(this).data('challenge-id');
+        var likeUrl = $(this).data('like-url'); // Get the URL from the data attribute
+        var button = $(this);
+
+        $.post(likeUrl, {
+            challenge_id: challengeId,
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+        }, function (data) {
+            if (data.success) {
+                $('#likes-' + challengeId).text(data.likes);
+                button.prop('disabled', true);
+            } else {
+                alert(data.message);
+            }
+        });
+    });
+
     $('#update-picture-btn').off('click').on('click', function () {
         $('#update-picture-modal').modal('show');
     });

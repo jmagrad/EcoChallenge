@@ -44,7 +44,8 @@ Challenges Page
             {% endif %}
           <p class="card-text text-white">Likes: <span id="likes-{{ challenge.id }}">{{ challenge.likes }}</span>
             <span class="float-end">
-              <button class="btn btn-secondary like-challenge-btn" data-challenge-id="{{ challenge.id }}">Like</button>
+              <button class="btn btn-secondary like-challenge-btn" data-challenge-id="{{ challenge.id }}"
+                data-like-url="{% url 'Eco:like_challenge' %}">Like</button>
           </p>
           </span>
           {% endif %}
@@ -102,24 +103,5 @@ Challenges Page
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="{% static 'js/scripts.js' %}"></script>
-<script>
-  $(document).ready(function () {
-    $('.like-challenge-btn').click(function () {
-      var challengeId = $(this).data('challenge-id');
-      var button = $(this);
-      $.post("{% url 'Eco:like_challenge' %}", {
-        challenge_id: challengeId,
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-      }, function (data) {
-        if (data.success) {
-          $('#likes-' + challengeId).text(data.likes);
-          button.prop('disabled', true);
-        } else {
-          alert(data.message);
-        }
-      });
-    });
-  });
-</script>
 
 {% endblock %}
