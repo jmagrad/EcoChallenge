@@ -28,6 +28,7 @@ class SubmittedChallengeAdmin(admin.ModelAdmin):
     def approve_selected_challenges(self, request, queryset):
         """Admin action to approve selected challenges."""
         queryset.update(approved=True)
+        self.create_challenge_from_submission(request, queryset)
 
     def reject_selected_challenges(self, request, queryset):
         """Admin action to reject selected challenges."""
@@ -38,21 +39,23 @@ class SubmittedChallengeAdmin(admin.ModelAdmin):
         for submitted_challenge in queryset:
             # Only create challenge if it's approved
             if submitted_challenge.approved:
-                Challenge.objects.get_or_create(
+                challenge, created = Challenge.objects.get_or_create(
                     title=submitted_challenge.title,
                     description=submitted_challenge.description,
-                    point_value=submitted_challenge.point_value, 
+                    point_value=submitted_challenge.point_value,
                     defaults={'likes': 0}
                 )
 
                 if created:
                     logger.info(f"Created challenge: {challenge.title}")
+                    challenge.save()
                 else:
                     logger.info(f"Challenge already exists: {challenge.title}")
+
                 # Optionally, mark the SubmittedChallenge as "converted" or update its status
-                submitted_challenge.approved = False  # Or update the status in any way
+                # submitted_challenge.approved = False  # Remove this line
                 submitted_challenge.save()
-                
+
         # Provide feedback message to the admin
         self.message_user(request, "Selected challenges have been converted to real challenges.")
     

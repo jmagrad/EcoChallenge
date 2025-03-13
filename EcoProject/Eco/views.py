@@ -144,29 +144,29 @@ def challenges(request):
     if query:
         challenges_list = Challenge.objects.filter(
             Q(title__icontains=query) |
-            Q(description__icontains=query) 
+            Q(description__icontains=query)
         )
     else:
         challenges_list = Challenge.objects.all()
-    
+
     # This is what the user sees if they submit a proposed challenge
     if request.method == 'POST':
-        form = SubmittedChallengeForm(request.POST)  
+        form = SubmittedChallengeForm(request.POST)
         if form.is_valid():
             # This saves the new challenge as submitted, but it is by default not approved (i.e. it goes to admin)
             submitted_challenge = form.save(commit=False)
-            submitted_challenge.approved = False  
+            submitted_challenge.approved = False
             submitted_challenge.save()
             return redirect('Eco:Challenges')  # Just to take the user back to the challenges page, once the
                 # challenge has been submitted. Will add a notification for the user like "Challenge submitted to admin" in due course
     else:
-        form = SubmittedChallengeForm()  
+        form = SubmittedChallengeForm()
 
     context_dict = {
         'challenges': challenges_list,
         'form': form,
     }
-    
+
     return render(request, 'Eco/challenges.html', context=context_dict)
 
 def educational_links(request):
