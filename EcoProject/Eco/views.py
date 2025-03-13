@@ -163,12 +163,16 @@ def educational_links(request):
 
 @login_required
 def log_challenge(request, challenge_id):
-        challenge = get_object_or_404(Challenge, id=challenge_id)
-        User_Challenge_Log_Entry.objects.create(user=request.user, challenge=challenge)
-        user_profile = UserProfile.objects.get(user=request.user)
-        user_profile.points += challenge.point_value
-        user_profile.save()
-        return redirect('Eco:Challenges')
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+    User_Challenge_Log_Entry.objects.create(
+        user=request.user, 
+        challenge=challenge, 
+        date_logged=timezone.now()  # Use the current datetime
+    )
+    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile.points += challenge.point_value
+    user_profile.save()
+    return redirect('Eco:Challenges')
 
 
 @login_required
