@@ -194,6 +194,11 @@ def leaderboard(request):
     for rank, user in enumerate(users, start=1):
         if days:
             points = user.points_within_timeframe(days)
+            # Debugging: Print user and their challenges within the timeframe
+            print(f"User: {user.user.username}")
+            log_entries = User_Challenge_Log_Entry.objects.filter(user=user.user, date_logged__range=(timezone.now() - timedelta(days=days), timezone.now()))
+            for entry in log_entries:
+                print(f"  Challenge: {entry.challenge.title}, Points: {entry.challenge.point_value}, Date: {entry.date_logged}")
         else:
             points = user.points
         ranked_users.append((rank, user, points))
