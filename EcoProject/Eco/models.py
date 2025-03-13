@@ -5,12 +5,11 @@ from datetime import timedelta
 from django.utils import timezone
 
 # Create your models here.
-    
+
 class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # The additional attributes we wish to include.
-    website = models.URLField(blank=True)
+    # The additional attributes we wish to include
     picture = models.ImageField(upload_to='profile_images', blank=True)
     points = models.IntegerField(default=0)  # Add this line to include points field
 

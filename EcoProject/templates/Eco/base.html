@@ -9,7 +9,9 @@
         {% block title_block %}
         {% endblock %}
     </title>
-    <style>
+    <style>     /* @Colin: This will all need to go in a CSS style sheet, and then override bootstrap. 
+                    I will work out how to do this effectively. For now, just trying to get it looking
+                    right. */
         body {
             background-image: url("{% static 'images/Leaf_alt.png' %}"); /* @Colin: Pic from the slides */
             background-size: cover; /* @Colin: This works for full screen and quarter screen...but not half screen. See note below */
@@ -19,11 +21,6 @@
             margin: 0;
             padding: 0;
         }
-
-        /* @Colin: Once we have the site more developed, we can find a way to control how the background
-            image appears on different screen sizes. Contain, rather than cover, looks good on half screen
-            but messy on full and quarter screen. I think an @media conditional will work. I will look into it
-            */
 
         a, a.nav-link {
             color: white !important; /* @Colin: Brute-forcing this with !important, to ensure consistency*/
@@ -37,6 +34,10 @@
 
         .text-white {
             color: white;
+        }
+
+        .text-muted {   /* @Colin: Not working for some reason - will sort later */
+        color: white !important;
         }
 
         .cover-container {
@@ -69,6 +70,7 @@
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     <a class="nav-link" href="{% url 'Eco:index' %}">Home</a>
                     {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'Eco:AccountPage' %}">My Account</a>
                         <a class="nav-link" href="{% url 'Eco:Challenges' %}">Challenges</a>
                         <a class="nav-link" href="{% url 'Eco:LeaderBoard' %}">LeaderBoard</a>
                         <a class="nav-link" href="{% url 'Eco:logout' %}">Logout</a>
