@@ -8,17 +8,31 @@ LeaderBoard Page
 
 <div>
     <h2>Leaderboard</h2>
+    <form method="get">
+        <select name="timeframe" onchange="this.form.submit()">
+            <option value="all" {% if timeframe == "all" %}selected{% endif %}>All Time</option>
+            <option value="week" {% if timeframe == "week" %}selected{% endif %}>Past Week</option>
+            <option value="month" {% if timeframe == "month" %}selected{% endif %}>Past Month</option>
+            <option value="year" {% if timeframe == "year" %}selected{% endif %}>Past Year</option>
+        </select>
+    </form>
     <ul>
-        {% for user in users %}
-        <li>{{ user.user.username }} - {{ user.points }} points</li>
+        {% for rank, user, points in ranked_users %}
+        <li>{{ rank }}. {{ user.user.username }} - {{ points }} points</li>
         {% endfor %}
     </ul>
 </div>
 
-<div>
-    <button onclick="window.location.href='{% url 'Eco:LeaderBoard' %}?timeframe=all'">All time</button>
-    <button onclick="window.location.href='{% url 'Eco:LeaderBoard' %}?timeframe=month'">Past Month</button>
-    <button onclick="window.location.href='{% url 'Eco:LeaderBoard' %}?timeframe=year'">Past Year</button>
-</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.filter-btn').click(function () {
+            var timeframe = $(this).data('timeframe');
+            $.get("{% url 'Eco:LeaderBoard' %}", { timeframe: timeframe }, function (data) {
+                $('#leaderboard-list').html(data);
+            });
+        });
+    });
+</script>
 
 {% endblock %}

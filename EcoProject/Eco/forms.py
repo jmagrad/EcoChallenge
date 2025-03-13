@@ -33,4 +33,4 @@ class SubmittedChallengeForm(forms.ModelForm):
 class LeaderboardForm(forms.ModelForm):
     class Meta:
         model = Leaderboard
-        fields = ('user', 'rank',)
+        fields = ('user',)

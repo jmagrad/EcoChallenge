@@ -27,6 +27,7 @@ class Challenge(models.Model):
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
     description = models.TextField()
     point_value = models.IntegerField()
+    likes = models.IntegerField(default=0)
     users = models.ManyToManyField(User, through='User_Challenge_Log_Entry')
     
     def __str__(self):
@@ -50,9 +51,7 @@ class Submitted_Challenge(models.Model):
 
 class Leaderboard(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rank = models.IntegerField()
     date_recorded = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"{self.user.username} - Rank: {self.rank} - {self.date_recorded}"
-    
+        return f"{self.user.username} - {self.date_recorded}"

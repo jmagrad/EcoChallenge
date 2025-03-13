@@ -1,0 +1,3 @@
+{% for rank, user, points in ranked_users %}
+<li>{{ rank }}. {{ user.user.username }} - {{ points }} points</li>
+{% endfor %}

@@ -5,6 +5,7 @@ from django.contrib.auth import logout
 
 from django.shortcuts import render
 #forms imports
+from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.urls import reverse
 from Eco.forms import UserForm, UserProfileForm
@@ -17,6 +18,8 @@ from datetime import timedelta
 from Eco.models import UserProfile
 from django.http import JsonResponse
 from django.db.models import Q
+from .models import Challenge, User_Challenge_Log_Entry
+from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
@@ -159,12 +162,24 @@ def educational_links(request):
     return render(request, 'Eco/EducationalLinks.html')
 
 @login_required
+def log_challenge(request, challenge_id):
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        User_Challenge_Log_Entry.objects.create(user=request.user, challenge=challenge)
+        user_profile = UserProfile.objects.get(user=request.user)
+        user_profile.points += challenge.point_value
+        user_profile.save()
+        return redirect('Eco:Challenges')
+
+
+@login_required
 def leaderboard(request):
     timeframe = request.GET.get('timeframe', 'all')
     if timeframe == 'month':
         days = 30
     elif timeframe == 'year':
         days = 365
+    elif timeframe == 'week':
+        days = 7
     else:
         days = None
 
@@ -174,11 +189,24 @@ def leaderboard(request):
     else:
         users = UserProfile.objects.all().order_by('-points')
 
-    context_dict = {
-        'users': users,
-        'timeframe': timeframe,
-    }
-    return render(request, 'Eco/leaderboard.html', context=context_dict)
+    # Calculate ranks and points within timeframe
+    ranked_users = []
+    for rank, user in enumerate(users, start=1):
+        if days:
+            points = user.points_within_timeframe(days)
+            # Debugging: Print user and their challenges within the timeframe
+            print(f"User: {user.user.username}")
+            log_entries = User_Challenge_Log_Entry.objects.filter(user=user.user, date_logged__range=(timezone.now() - timedelta(days=days), timezone.now()))
+            for entry in log_entries:
+                print(f"  Challenge: {entry.challenge.title}, Points: {entry.challenge.point_value}, Date: {entry.date_logged}")
+        else:
+            points = user.points
+        ranked_users.append((rank, user, points))
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'Eco/leaderboard_list.html', {'ranked_users': ranked_users})
+    else:
+        return render(request, 'Eco/leaderboard.html', {'ranked_users': ranked_users, 'timeframe': timeframe, 'days': days})
 
 
 @login_required
@@ -188,6 +216,7 @@ def account_page(request):
     points_year = user_profile.points_within_timeframe(365)
     points_month = user_profile.points_within_timeframe(30)
     points_week = user_profile.points_within_timeframe(7)
+    user_challenge_log_entries = User_Challenge_Log_Entry.objects.filter(user=request.user)
     
     context_dict = {
         'user': request.user,
@@ -196,6 +225,7 @@ def account_page(request):
         'points_year': points_year,
         'points_month': points_month,
         'points_week': points_week,
+        'user_challenge_log_entries': user_challenge_log_entries,
     }
     return render(request, 'Eco/AccountPage.html', context=context_dict)
 
@@ -220,3 +250,18 @@ def update_picture(request):
         return JsonResponse({'message': 'Profile picture updated successfully.'})
     else:
         return JsonResponse({'error': 'No picture uploaded.'}, status=400)
+
+@login_required
+@csrf_exempt
+def like_challenge(request):
+    if request.method == 'POST':
+        challenge_id = request.POST.get('challenge_id')
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        user = request.user
+        if not User_Challenge_Log_Entry.objects.filter(user=user, challenge=challenge).exists():
+            challenge.likes += 1
+            challenge.save()
+            return JsonResponse({'success': True, 'likes': challenge.likes})
+        else:
+            return JsonResponse({'success': False, 'message': 'You have already liked this challenge.'})
+    return JsonResponse({'success': False, 'message': 'Invalid request.'})

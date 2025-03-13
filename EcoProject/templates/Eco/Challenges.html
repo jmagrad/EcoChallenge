@@ -2,7 +2,6 @@
 {% load static %}
 {% block title_block %}
 Challenges Page
-
 {% endblock %}
 {% block body_block %}
 
@@ -12,17 +11,18 @@ Challenges Page
     <p class="lead">Browse or search below to take on a new challenge.</p>
 
     <form method="GET" action="{% url 'Eco:Challenges' %}">
-      <div class="input-group" style="max-width: 400px;">  
-        <input type="text" name="q" 
-               class="form-control form-control-sm bg-dark text-white border-success rounded-pill px-3"
-               placeholder="Search for a keyword or phrase" style="color: white" value="{{ query }}"> &nbsp;&nbsp; &nbsp;&nbsp;
+      <div class="input-group" style="max-width: 400px;">
+        <input type="text" name="q"
+          class="form-control form-control-sm bg-dark text-white border-success rounded-pill px-3"
+          placeholder="Search for a keyword or phrase" style="color: white" value="{{ query }}"> &nbsp;&nbsp;
+        &nbsp;&nbsp;
         <button type="submit" class="btn btn-success btn-sm rounded-pill px-3">Search Challenges</button>
-      </div> <!-- @Colin: Placeholder text is not showing - will fix later-->
+      </div>
     </form>
   </div>
 </div>
 
-<div class="container" >
+<div class="container">
   <div class="row">
     {% for challenge in challenges %}
     <div class="col-md-6 mb-1">
@@ -30,10 +30,17 @@ Challenges Page
         <div class="card-body text-white">
           <h5 class="card-title text-white">{{ challenge.title }}</h5>
           <p class="card-text text-white">{{ challenge.description }}</p>
+          <p class="card-text text-white">Points: {{ challenge.point_value }}</p>
+          <p class="card-text text-white">Likes: <span id="likes-{{ challenge.id }}">{{ challenge.likes }}</span></p>
           {% if user.is_authenticated %}
-          <!-- @Colin: Not sure if join challenge is right. I think users just log them via account page?-->
+          {% if challenge in user_challenges %}
+          <p><button class="btn btn-primary" id="challenge-{{ challenge.id }}" disabled>Completed</button></p>
           {% else %}
-          <p><a href="{% url 'Eco:login' %}" class="btn btn-primary">Join Challenge</a> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; Points: {{ challenge.point_value }}</p>
+          <p><button class="btn btn-primary log-challenge-btn" data-challenge-id="{{ challenge.id }}">Log
+              Challenge</button></p>
+          {% endif %}
+          <p><button class="btn btn-secondary like-challenge-btn" data-challenge-id="{{ challenge.id }}">Like</button>
+          </p>
           {% endif %}
         </div>
       </div>
@@ -41,24 +48,30 @@ Challenges Page
     {% empty %}
     <p>No challenges found.</p>
     {% endfor %}
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        <img src="{% static 'images/Leaf.jpg' %}" class="img-fluid w-100" alt="Leaf Image">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body text-white">
-            <h5 class="card-title">Do you have a great idea for our next Eco Challenge? </h5>
-            <p class="card-text">Don't keep it to yourself - let us know!<br />
-            {% if user.is_authenticated %}
-            <p><a href="#" class="btn btn-primary">Suggest Challenge</a></p>
-              <!-- @Colin: I think this should take logged in users to the relevant part of their account page, so they can suggest
-                    the new challenge from there?-->
-            {% else %}
-            <p><a href="{% url 'Eco:login' %}" class="btn btn-primary">Suggest Challenge</a></p>
-            {% endif %}
-        </div>
-      </div>
-    </div>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('.log-challenge-btn').click(function () {
+      var challengeId = $(this).data('challenge-id');
+      if (confirm('Are you sure you want to log this challenge? No cheating, dishonesty is not very Eco friendly.')) {
+        window.location.href = "{% url 'Eco:log_challenge' 0 %}".replace('0', challengeId);
+      }
+    });
+
+    $('.like-challenge-btn').click(function () {
+      var challengeId = $(this).data('challenge-id');
+      var button = $(this);
+      $.post("{% url 'Eco:like_challenge' %}", { challenge_id: challengeId, csrfmiddlewaretoken: '{{ csrf_token }}' }, function (data) {
+        if (data.success) {
+          $('#likes-' + challengeId).text(data.likes);
+          button.prop('disabled', true);
+        }
+      });
+    });
+  });
+</script>
+
 {% endblock %}
