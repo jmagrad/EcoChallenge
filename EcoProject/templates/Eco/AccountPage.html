@@ -7,10 +7,11 @@ Account Page
 
 {% block body_block %}
 
+<!-- @Colin: Very minor updates, for the sake of visual consistency with the rest of the site-->
 <div class="row top-cards">
     <div class="col-lg-4">
-        <div class="card mb-4">
-            <div class="card-body text-center">
+        <div class="card mb-4 bg-success bg-opacity-25">
+            <div class="card-body text-center text-white">
                 {% if user_profile.picture %}
                 <img src="{{ user_profile.picture.url }}" alt="avatar" class="rounded-circle img-fluid"
                     style="width: 150px;">
@@ -19,8 +20,8 @@ Account Page
                     class="rounded-circle img-fluid" style="width: 150px;">
                 {% endif %}
                 <h5 class="my-3">{{ user.username }}</h5>
-                <p class="text-muted mb-1">{{ user_profile.website }}</p>
-                <p class="text-muted mb-4">Points: {{ user_profile.points }}</p>
+                <p class="text-white mb-1">{{ user_profile.website }}</p>
+                <p class="text-white mb-4">Points: {{ user_profile.points }}</p>
                 <div class="d-flex justify-content-center mb-2">
                     <button type="button" class="btn btn-primary" id="update-picture-btn">Update
                         Picture</button>
@@ -31,14 +32,14 @@ Account Page
         </div>
     </div>
     <div class="col-lg-8">
-        <div class="card mb-4">
-            <div class="card-body">
+        <div class="card mb-4 bg-success bg-opacity-25">
+            <div class="card-body text-white">
                 <div class="row">
                     <div class="col-sm-3">
                         <p class="mb-0">Full Name</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{ user.get_full_name }}</p>
+                        <p class="text-white mb-0">{{ user.get_full_name }}</p>
                     </div>
                 </div>
                 <hr>
@@ -47,27 +48,18 @@ Account Page
                         <p class="mb-0">Email</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{ user.email }}</p>
+                        <p class="text-white mb-0">{{ user.email }}</p>
                     </div>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p class="mb-0">Website</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{ user_profile.website }}</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
+                <div class="row">       
                     <div class="col-sm-3">
                         <p class="mb-0">Points</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{ user_profile.points }}</p>
+                        <p class="text-white mb-0">{{ user_profile.points }}</p>
                     </div>
-                </div>
+                </div>      <!-- @Colin: Removed website, as this is no longer used for user registration -->
             </div>
         </div>
     </div>
@@ -77,15 +69,15 @@ Account Page
 <div class="row">
     <!-- Points Overview card -->
     <div class="col-lg-6">
-        <div class="card mb-4">
-            <div class="card-body">
-                <p class="mb-4"><span class="text-primary font-italic me-1"></span> Points Overview</p>
+        <div class="card mb-4 bg-success bg-opacity-25">
+            <div class="card-body text-white">
+                <p class="mb-4"><span class="text-white font-italic me-1"></span> Points Overview</p>
                 <div class="row">
                     <div class="col-sm-3">
                         <p class="mb-0" style="font-size: .77rem;">All Time</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{points_all_time}}</p>
+                        <p class="text-white mb-0">{{points_all_time}}</p>
                     </div>
                 </div>
                 <hr>
@@ -94,7 +86,7 @@ Account Page
                         <p class="mb-0" style="font-size: .77rem;">This Year</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{points_year}}</p>
+                        <p class="text-white mb-0">{{points_year}}</p>
                     </div>
                 </div>
                 <hr>
@@ -103,7 +95,7 @@ Account Page
                         <p class="mb-0" style="font-size: .77rem;">This Month</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{points_month}}</p>
+                        <p class="text-white mb-0">{{points_month}}</p>
                     </div>
                 </div>
                 <hr>
@@ -112,7 +104,7 @@ Account Page
                         <p class="mb-0" style="font-size: .77rem;">This Week</p>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-muted mb-0">{{points_week}}</p>
+                        <p class="text-white mb-0">{{points_week}}</p>
                     </div>
                 </div>
             </div>
@@ -121,9 +113,9 @@ Account Page
 
     <!-- Challenges Logged card -->
     <div class="col-lg-6">
-        <div class="card mb-4">
-            <div class="card-body">
-                <p class="mb-4"><span class="text-primary font-italic me-1"></span> Challenges Logged</p>
+        <div class="card mb-4 bg-success bg-opacity-25">
+            <div class="card-body text-white">
+                <p class="mb-4"><span class="text-white font-italic me-1"></span> Challenges Logged</p>
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="mb-0" style="font-size: .77rem;">Challenge</p>
@@ -136,10 +128,10 @@ Account Page
                 {% for challenge in challenges %}
                 <div class="row">
                     <div class="col-sm-6">
-                        <p class="text-muted mb-0">{{ challenge.name }}</p>
+                        <p class="text-white mb-0">{{ challenge.name }}</p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-muted mb-0">{{ challenge.date_logged }}</p>
+                        <p class="text-white mb-0">{{ challenge.date_logged }}</p>
                     </div>
                 </div>
                 <hr>
