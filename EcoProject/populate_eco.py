@@ -12,8 +12,12 @@ def populate():
     # Clear existing user points and user challenge log entries
     User_Challenge_Log_Entry.objects.all().delete()
     for user in User.objects.all():
-        user.userprofile.points = 0
-        user.userprofile.save()
+        try:
+            user_profile = user.userprofile
+        except UserProfile.DoesNotExist:
+            user_profile = UserProfile.objects.create(user=user, points=0)
+        user_profile.points = 0
+        user_profile.save()
 
     # Create users
     user1 = add_user('user1', 'user1@example.com', 'password123', 0)
