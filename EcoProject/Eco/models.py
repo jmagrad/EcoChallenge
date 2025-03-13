@@ -24,8 +24,9 @@ class UserProfile(models.Model):
 
 class Challenge(models.Model):
     TITLE_MAX_LENGTH = 128
+    DESCRIPTION_MAX_LENGTH = 750
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
-    description = models.TextField()
+    description = models.TextField(max_length=DESCRIPTION_MAX_LENGTH)
     point_value = models.IntegerField()
     likes = models.IntegerField(default=0)
     users = models.ManyToManyField(User, through='User_Challenge_Log_Entry')
@@ -42,12 +43,25 @@ class User_Challenge_Log_Entry(models.Model):
         return f"{self.user.username} - {self.challenge.title} - {self.date_logged}"
 
 class Submitted_Challenge(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
+    title = models.CharField(max_length=Challenge.TITLE_MAX_LENGTH, default="No title provided.")
+    #challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE) Deleted because this is a new challenge
+    #   not an existing one. This was trying to link the submitted challenge to an existing one.
+    description = models.TextField(max_length=Challenge.DESCRIPTION_MAX_LENGTH, default="No description provided.")
+    point_value = models.IntegerField(default=0)
     date_submitted = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
+    #challenge = models.ForeignKey('Challenge', on_delete=models.SET_NULL, null=True, blank=True) See comment immediately above
     
     def __str__(self):
-        return f"{self.user.username} - {self.challenge.title} - {self.date_submitted}"
+        return f"{self.title} - {self.date_submitted}"
+    
+    def approve(self):
+        # This is my attempt at trying to automatically create a new challenge, when approved by the 
+        #   administrator in the submitted challenges seciton of /admin
+        if self.approved:
+            add_challenge(self.title, self.description, self.point_value)
+        # Considered having logic to delete the approved challenge from submitted challenges, but the 
+        # /admin interface has a helpful filter function already, so you can easily find what you need
 
 class Leaderboard(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

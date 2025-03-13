@@ -26,9 +26,22 @@ class UserChallengeLogEntryForm(forms.ModelForm):
         fields = ('user', 'challenge',)
 
 class SubmittedChallengeForm(forms.ModelForm):
+    POINT_CHOICES = [
+        (5, '5 points'),
+        (10, '10 points'),
+        (15, '15 points'),
+        (20, '20 points'),
+        (25, '25 points or more')
+    ]
+
+    point_value = forms.ChoiceField(choices=POINT_CHOICES, widget=forms.RadioSelect)
+    
     class Meta:
         model = Submitted_Challenge
-        fields = ('user', 'challenge',)
+        fields = ('title', 'description', 'point_value')
+        widgets = {
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 6}),
+        }
 
 class LeaderboardForm(forms.ModelForm):
     class Meta:

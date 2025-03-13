@@ -26,28 +26,85 @@ Challenges Page
   <div class="row">
     {% for challenge in challenges %}
     <div class="col-md-6 mb-1">
-      <div class="card mb-1 bg-success bg-opacity-25" style="height: 200px; transform: scale(0.75)">
+      <div class="card mb-1 bg-success bg-opacity-25" style="height: 220px; transform: scale(0.75)">
         <div class="card-body text-white">
           <h5 class="card-title text-white">{{ challenge.title }}</h5>
           <p class="card-text text-white">{{ challenge.description }}</p>
-          <p class="card-text text-white">Points: {{ challenge.point_value }}</p>
-          <p class="card-text text-white">Likes: <span id="likes-{{ challenge.id }}">{{ challenge.likes }}</span></p>
-          {% if user.is_authenticated %}
-          {% if challenge in user_challenges %}
-          <p><button class="btn btn-primary" id="challenge-{{ challenge.id }}" disabled>Completed</button></p>
-          {% else %}
-          <p><button class="btn btn-primary log-challenge-btn" data-challenge-id="{{ challenge.id }}">Log
-              Challenge</button></p>
-          {% endif %}
-          <p><button class="btn btn-secondary like-challenge-btn" data-challenge-id="{{ challenge.id }}">Like</button>
-          </p>
-          {% endif %}
+          <p class="card-text text-white">Points: {{ challenge.point_value }} 
+            {% if user.is_authenticated %}
+            {% if challenge in user_challenges %}
+            <span class="float-end">
+            <button class="btn btn-primary" id="challenge-{{ challenge.id }}" disabled>Completed</button>
+            </span>
+            {% else %}
+            <span class="float-end">
+              <button class="btn btn-primary log-challenge-btn" data-challenge-id="{{ challenge.id }}">Log
+                Challenge</button>
+              </span>
+            {% endif %}
+            <p class="card-text text-white">Likes: <span id="likes-{{ challenge.id }}">{{ challenge.likes }}</span> 
+              <span class="float-end">
+              <button class="btn btn-secondary like-challenge-btn" data-challenge-id="{{ challenge.id }}">Like</button></p>
+              </span>
+            {% endif %}
         </div>
       </div>
     </div>
     {% empty %}
     <p>No challenges found.</p>
     {% endfor %}
+  </div>
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <p class="lead fs-4">Do you have a great idea for our next challenge?</p>
+    {% if user.is_authenticated %}
+      <p class="lead fs-6">Don't keep it to yourself. Let us know!</p>
+
+      <form method="POST">
+        {% csrf_token %}
+        
+        <!-- For adding suggested title for your proposed challenge  -->
+        <div class="row mb-3">
+          <label for="id_title" class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            {{ form.title }}
+          </div>
+        </div>
+
+        <!-- Description for your proposed challenge. Note - this box is resizable -->
+        <div class="row mb-3">
+          <style>
+            textarea {
+              height: 20px;
+            }
+          </style>
+          <label for="id_description" class="col-sm-2 col-form-label">Description</label>
+          <div class="col-sm-10">
+            {{ form.description }}
+          </div>
+        </div>
+
+        <!-- Suggsted point value for your proposed challenge  -->
+        <fieldset class="row mb-3">
+          <legend class="col-form-label col-sm-2 pt-0">Point Value</legend>
+          <div class="col-sm-10">
+            {{ form.point_value }}
+          </div>
+        </fieldset>
+
+        <!-- Submit button for proposed challenge -->
+        <div class="row mb-3">
+          <div class="col-sm-10 offset-sm-2">
+            <button type="submit" class="btn btn-primary">Submit Challenge</button>
+          </div>
+        </div>
+      </form>
+    {% else %}
+      <p class="lead fs-6">Don't keep it to yourself. <a href="{% url 'Eco:register' %}">Sign up</a>
+      or <a href="{% url 'Eco:login' %}">login</a> and let us know!</p>
+    {% endif %}
   </div>
 </div>
 
