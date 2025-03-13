@@ -1,24 +1,20 @@
 # Create your views here.
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 #forms imports
 from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
 from django.urls import reverse
-from Eco.forms import UserForm, UserProfileForm
+from Eco.forms import UserForm, UserProfileForm, SubmittedChallengeForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
-from Eco.models import Challenge
+from Eco.models import Challenge, UserProfile, User_Challenge_Log_Entry, Submitted_Challenge
 from django.utils import timezone
 from datetime import timedelta
-from Eco.models import UserProfile
 from django.http import JsonResponse
 from django.db.models import Q
-from .models import Challenge, User_Challenge_Log_Entry
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -143,6 +139,7 @@ def user_logout(request):
     return redirect(reverse('Eco:index'))
 
 def challenges(request):
+    # This is what is seen when the user is just looking to view (or search) the challenges page
     query = request.GET.get('q')
     if query:
         challenges_list = Challenge.objects.filter(
@@ -152,8 +149,22 @@ def challenges(request):
     else:
         challenges_list = Challenge.objects.all()
     
+    # This is what the user sees if they submit a proposed challenge
+    if request.method == 'POST':
+        form = SubmittedChallengeForm(request.POST)  
+        if form.is_valid():
+            # This saves the new challenge as submitted, but it is by default not approved (i.e. it goes to admin)
+            submitted_challenge = form.save(commit=False)
+            submitted_challenge.approved = False  
+            submitted_challenge.save()
+            return redirect('Eco:Challenges')  # Just to take the user back to the challenges page, once the
+                # challenge has been submitted. Will add a notification for the user like "Challenge submitted to admin" in due course
+    else:
+        form = SubmittedChallengeForm()  
+
     context_dict = {
         'challenges': challenges_list,
+        'form': form,
     }
     
     return render(request, 'Eco/challenges.html', context=context_dict)
