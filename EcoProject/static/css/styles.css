@@ -70,3 +70,10 @@ h1 {
 .leaderboard-container {
     text-align: center;
 }
+
+/* Styles for links in index.html */
+a.green-link {
+    color: green;
+    font-weight: bold;
+    text-decoration: underline;
+}
