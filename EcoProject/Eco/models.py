@@ -3,6 +3,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from datetime import timedelta
 from django.utils import timezone
+from django.core.validators import MinValueValidator
 
 # Create your models here.
 
@@ -26,7 +27,7 @@ class Challenge(models.Model):
     TITLE_MAX_LENGTH = 128
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
     description = models.TextField()
-    point_value = models.IntegerField()
+    point_value = models.IntegerField(validators=[MinValueValidator(0)])
     likes = models.IntegerField(default=0)
     users = models.ManyToManyField(User, through='User_Challenge_Log_Entry')
     
@@ -36,7 +37,7 @@ class Challenge(models.Model):
 class User_Challenge_Log_Entry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
-    date_logged = models.DateTimeField(auto_now_add=True)
+    date_logged = models.DateTimeField()  # Remove auto_now_add=True
     
     def __str__(self):
         return f"{self.user.username} - {self.challenge.title} - {self.date_logged}"

@@ -76,8 +76,12 @@ def add_challenge(title, description, point_value):
     return challenge
 
 def log_user_challenge(user, challenge, date_logged=None):
-    log_entry = User_Challenge_Log_Entry.objects.get_or_create(user=user, challenge=challenge, date_logged=date_logged)[0]
-    log_entry.save()
+    if date_logged is None:
+        date_logged = datetime.now()
+    log_entry, created = User_Challenge_Log_Entry.objects.get_or_create(user=user, challenge=challenge, defaults={'date_logged': date_logged})
+    if not created:
+        log_entry.date_logged = date_logged
+        log_entry.save()
 
 def add_leaderboard_entry(user):
     # Ensure only one leaderboard entry per user
