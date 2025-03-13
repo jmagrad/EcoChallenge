@@ -52,14 +52,14 @@ Account Page
                     </div>
                 </div>
                 <hr>
-                <div class="row">       
+                <div class="row">
                     <div class="col-sm-3">
                         <p class="mb-0">Points</p>
                     </div>
                     <div class="col-sm-9">
                         <p class="text-white mb-0">{{ user_profile.points }}</p>
                     </div>
-                </div>      <!-- @Colin: Removed website, as this is no longer used for user registration -->
+                </div> <!-- @Colin: Removed website, as this is no longer used for user registration -->
             </div>
         </div>
     </div>
@@ -128,10 +128,10 @@ Account Page
                 {% for log_entry in user_challenge_log_entries %}
                 <div class="row">
                     <div class="col-sm-6">
-                        <p class="text-white mb-0">{{ challenge.name }}</p>
+                        <p class="text-white mb-0">{{ log_entry.challenge.title }}</p>
                     </div>
                     <div class="col-sm-6">
-                        <p class="text-white mb-0">{{ challenge.date_logged }}</p>
+                        <p class="text-white mb-0">{{ log_entry.date_logged }}</p>
                     </div>
                 </div>
                 <hr>
