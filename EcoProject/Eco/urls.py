@@ -15,5 +15,6 @@ urlpatterns = [
     path('update_email/', views.update_email, name='update_email'),
     path('update_picture/', views.update_picture, name='update_picture'),
     path('log_challenge/<int:challenge_id>/', views.log_challenge, name='log_challenge'),
+    path('like_challenge/', views.like_challenge, name='like_challenge'),
 ]
 

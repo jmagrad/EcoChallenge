@@ -178,6 +178,8 @@ def leaderboard(request):
         days = 30
     elif timeframe == 'year':
         days = 365
+    elif timeframe == 'week':
+        days = 7
     else:
         days = None
 
@@ -187,11 +189,19 @@ def leaderboard(request):
     else:
         users = UserProfile.objects.all().order_by('-points')
 
-    context_dict = {
-        'users': users,
-        'timeframe': timeframe,
-    }
-    return render(request, 'Eco/leaderboard.html', context=context_dict)
+    # Calculate ranks and points within timeframe
+    ranked_users = []
+    for rank, user in enumerate(users, start=1):
+        if days:
+            points = user.points_within_timeframe(days)
+        else:
+            points = user.points
+        ranked_users.append((rank, user, points))
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'Eco/leaderboard_list.html', {'ranked_users': ranked_users})
+    else:
+        return render(request, 'Eco/leaderboard.html', {'ranked_users': ranked_users, 'timeframe': timeframe, 'days': days})
 
 
 @login_required
@@ -235,3 +245,18 @@ def update_picture(request):
         return JsonResponse({'message': 'Profile picture updated successfully.'})
     else:
         return JsonResponse({'error': 'No picture uploaded.'}, status=400)
+
+@login_required
+@csrf_exempt
+def like_challenge(request):
+    if request.method == 'POST':
+        challenge_id = request.POST.get('challenge_id')
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        user = request.user
+        if not User_Challenge_Log_Entry.objects.filter(user=user, challenge=challenge).exists():
+            challenge.likes += 1
+            challenge.save()
+            return JsonResponse({'success': True, 'likes': challenge.likes})
+        else:
+            return JsonResponse({'success': False, 'message': 'You have already liked this challenge.'})
+    return JsonResponse({'success': False, 'message': 'Invalid request.'})
