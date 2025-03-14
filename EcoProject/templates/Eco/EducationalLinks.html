@@ -12,39 +12,25 @@
 {% block body_block %}
 
 <h1>Educational Links Page</h1>
+<p>
+  <span class="bold-green">
+      "Do not wait for extraordinary circumstances to do good action; try to use ordinary situations." - Jean Paul Richter
+  </span> 
+</p>
+<div class = "container">
 <div class="text-box">
-h2>General Sustainability & Green Living</h2>
-<ul>
-    <li><a href="https://www.treehugger.com/" target="_blank"><strong>Treehugger</strong></a> – Covers everything from
-        sustainable living and design to eco-friendly technology and energy.</li>
-    <li><a href="https://earth911.com/" target="_blank"><strong>Earth911</strong></a> – Offers recycling guides,
-        sustainability tips, and eco-conscious product recommendations.</li>
-</ul>
-</div>
-<h2>Zero Waste & Minimalism</h2>
-<ul>
-    <li><a href="https://www.goingzerowaste.com/" target="_blank"><strong>Going Zero Waste</strong></a> – Offers
-        practical tips on living waste-free and reducing your environmental footprint.</li>
-</ul>
+  <h2>Interesting facts about the environment and sustainability </h2>
+  <ul>
+    <img src="static/images/forest-trees-perspective-bright.jpeg">
+    <li> Paper accounts for 26% of landfill</li>
+    <li> In the UK, we use 7.7 billion plastic bottles each year </li>
+    <li> 8 million tonnes of the world's plastics end up in our oceans </li>
+    <li> Plastic bottles can take up to 500 years to decompose </li>
+    <li> In 2019, cars account for 19% of UK's carbon emissions</li>
+  </ul>
+  </div>
 
-<h2>Eco-Friendly Shopping & Ethical Brands</h2>
-<ul>
-    <li><a href="https://www.ethicalconsumer.org/" target="_blank"><strong>Ethical Consumer</strong></a> – A guide to
-        ethical products, brands, and sustainable choices.</li>
-    <li><a href="https://www.sustainablejungle.com/" target="_blank"><strong>Sustainable Jungle</strong></a> – Reviews
-        eco-friendly products, sustainable fashion, and ethical brands.</li>
-</ul>
-
-<h2>Green Energy & Sustainable Homes</h2>
-<ul>
-    <li><a href="https://www.energysage.com/" target="_blank"><strong>Energy Sage</strong></a> – Helps compare solar
-        panel options and find sustainable energy solutions.</li>
-    <li><a href="https://www.greenbuildingadvisor.com/" target="_blank"><strong>Green Building Advisor</strong></a> –
-        For those interested in sustainable architecture and green home improvements.</li>
-    <li><a href="https://www.motherearthnews.com/" target="_blank"><strong>Mother Earth News</strong></a> – A classic
-        resource for homesteading, gardening, and sustainable living.</li>
-</ul>
-<div class="text-box">
+<div class="text-box2">
 <h2>General Sustainability & Green Living</h2>
 <ul>
     <li><a href="https://www.treehugger.com/" target="_blank"><strong>Treehugger</strong></a> – Covers everything from
@@ -53,41 +39,35 @@ h2>General Sustainability & Green Living</h2>
         sustainability tips, and eco-conscious product recommendations.</li>
 </ul>
 </div>
+<div class="text-box2">
 <h2>Zero Waste & Minimalism</h2>
 <ul>
     <li><a href="https://www.goingzerowaste.com/" target="_blank"><strong>Going Zero Waste</strong></a> – Offers
         practical tips on living waste-free and reducing your environmental footprint.</li>
 </ul>
-<body>
-  "Do not wait for extraordinary circumstances to do good action; try to use ordinary situations." - Jean Paul Richter. 
+</div>
 
-    This famous quote by Jean Paul Richter shows that the ordinary situations are the best circumatances for good actions.  <strong>{{ boldmessage }}</strong><br />
-    <ul>
-    There are various importances to choosing a lifestyle that incorporates ecofriendly habits. 
-    <li>This includes helps to improve general public health. </li> 
-    <li>Reduced energy consumption. </li> 
-    <li>Greater biodiversity for the environment.</li>
-    All these habits, help to save the planet and preserve natural resources. 
+<div class="text-box2">
+<h2>Eco-Friendly Shopping & Ethical Brands</h2>
+<ul>
+    <li><a href="https://www.ethicalconsumer.org/" target="_blank"><strong>Ethical Consumer</strong></a> – A guide to
+        ethical products, brands, and sustainable choices.</li>
+    <li><a href="https://www.sustainablejungle.com/" target="_blank"><strong>Sustainable Jungle</strong></a> – Reviews
+        eco-friendly products, sustainable fashion, and ethical brands.</li>
 </ul>
+</div>
 
-  
-  <title>Sustainable lifestyles</title>
-  https://www.unep.org/explore-topics/resource-efficiency/what-we-do/sustainable-lifestyles 
-  The United Nations describes sustainable-lifestyles as ways of living, social behaviours and choices that minimize environmental degredation.
-  while supporting socio-economic growth and better quality of life.
-  https://www.goodenergy.co.uk/blog/the-ultimate-20-step-guide-to-eco-friendly-living/  a 20 step programme that shows the ecofriendly lifestyle 
-  //add green buttons for visit links 
-  //add the trees image as well and add incorporate inline css 
-  //add a like button for people to like the online resource use AJAX 
-  // use AJAX to find a category in the challenges group // resources inlcuding reusable bag, bottles,
-
-
-  // body {
-    background: linear-gradient(to bottom, #1E1E1E 50%, white 50%);
-    height: 100vh; /* Ensure the gradient covers the full viewport height */
-  } // use this to make the bottom half of the screen white 
-   // add a few ecofriendly fun facts 
-// we could add a like button as part of AJAX pls// 
+<div class="text-box2">
+<h2>Green Energy & Sustainable Homes</h2>
+<ul>
+    <li><a href="https://www.energysage.com/" target="_blank"><strong>Energy Sage</strong></a> – Helps compare solar
+        panel options and find sustainable energy solutions.</li>
+    <li><a href="https://www.greenbuildingadvisor.com/" target="_blank"><strong>Green Building Advisor</strong></a> –
+        For those interested in sustainable architecture and green home improvements.</li>
+    <li><a href="https://www.motherearthnews.com/" target="_blank"><strong>Mother Earth News</strong></a> – A classic
+        resource for homesteading, gardening, and sustainable living.</li>
+</ul></div>
+</div>
 </body>
 
 // for the challenges page; include the information that is available in the wireframes for the challenges and how people can sign Up
@@ -99,7 +79,7 @@ h2>General Sustainability & Green Living</h2>
 
  
         
-
+       <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </body>
 </html>
 {% endblock %}
