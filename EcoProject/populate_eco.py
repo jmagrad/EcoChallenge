@@ -6,7 +6,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'EcoProject.settings')
 
 import django
 django.setup()
-from Eco.models import User, UserProfile, Challenge, User_Challenge_Log_Entry, Submitted_Challenge, Leaderboard
+from Eco.models import User, UserProfile, Challenge, User_Challenge_Log_Entry, Submitted_Challenge, Leaderboard, EducationalLink
 
 def populate():
     # Clear existing user points and user challenge log entries
@@ -29,7 +29,24 @@ def populate():
     food_waste_challenge = add_challenge('Food Waste', 'Compost all of your food this week.', 15)
     litter_pickup_challenge = add_challenge('Litter Pickup', 'Spend 30 minutes picking up litter in a public space', 10)
     meatless_week_challenge = add_challenge('Meatless Week', 'Go a week without eating meat.', 15)
-    
+
+    # Add eductional links
+    # General Sustainability & Green Living
+    add_educational_link('Treehugger', 'Covers everything from sustainable living and design to eco-friendly technology and energy.', 'https://www.treehugger.com/')
+    add_educational_link('Earth911', 'Offers recycling guides, sustainability tips, and eco-conscious product recommendations.', 'https://earth911.com/')
+
+    # Zero Waste & Minimalism
+    add_educational_link('Going Zero Waste', 'Offers practical tips on living waste-free and reducing your environmental footprint.', 'https://www.goingzerowaste.com/')
+
+    # Eco-Friendly Shopping & Ethical Brands
+    add_educational_link('Ethical Consumer', 'A guide to ethical products, brands, and sustainable choices.', 'https://www.ethicalconsumer.org/')
+    add_educational_link('Sustainable Jungle', 'Reviews eco-friendly products, sustainable fashion, and ethical brands.', 'https://www.sustainablejungle.com/')
+
+    # Green Energy & Sustainable Homes
+    add_educational_link('Energy Sage', 'Helps compare solar panel options and find sustainable energy solutions.', 'https://www.energysage.com/')
+    add_educational_link('Green Building Advisor', 'For those interested in sustainable architecture and green home improvements.', 'https://www.greenbuildingadvisor.com/')
+    add_educational_link('Mother Earth News', 'A classic resource for homesteading, gardening, and sustainable living.', 'https://www.motherearthnews.com/')
+
     # Log user challenges
     log_user_challenge(user1, commute_challenge,datetime.now() - timedelta(days=14))
     log_user_challenge(user1, food_waste_challenge,datetime.now() - timedelta(days=14))
@@ -97,6 +114,11 @@ def update_user_points(user):
     user_profile = user.userprofile
     user_profile.points = User_Challenge_Log_Entry.objects.filter(user=user).count() * 15  # Assuming each challenge is worth 15 points
     user_profile.save()
+
+def add_educational_link(title, description, url):
+    link, created =  EducationalLink.objects.get_or_create(title=title, description=description, url=url)
+    link.save()
+    return link
 
 if __name__ == '__main__':
     print('Starting Eco population script...')
