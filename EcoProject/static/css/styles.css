@@ -77,3 +77,11 @@ a.green-link {
     font-weight: bold;
     text-decoration: underline;
 }
+
+/* Styles for educationaLinks.html */
+.new-text-box {
+    background-color: #ffcc00;
+    padding: 20px;
+    border: 2px solid #000;
+    border-radius: 10px;
+}
