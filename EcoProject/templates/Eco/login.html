@@ -5,6 +5,7 @@ Login
 {% endblock %}
 {% block body_block %}
 <h1>Login to EcoChallenge</h1>
+<div class="jumbotron jumbotron-fluid">
 <div class="container">
     <form class="form-signin" role="form" method="post" action=".">
         {% csrf_token %}
@@ -15,5 +16,6 @@ Login
         <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Sign in</button>
     </form>
+</div>
 </div>
 {% endblock %}

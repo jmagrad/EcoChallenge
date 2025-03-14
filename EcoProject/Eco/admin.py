@@ -1,6 +1,6 @@
 from django.contrib import admin
 #from Eco.models import *
-from Eco.models import Challenge, Submitted_Challenge, UserProfile, User_Challenge_Log_Entry, Leaderboard
+from Eco.models import Challenge, Submitted_Challenge, UserProfile, User_Challenge_Log_Entry, Leaderboard, EducationalLink
 import logging
 
 logger = logging.getLogger(__name__)
@@ -9,6 +9,7 @@ admin.site.register(UserProfile)
 admin.site.register(Challenge)
 admin.site.register(User_Challenge_Log_Entry)
 admin.site.register(Leaderboard)
+admin.site.register(EducationalLink)
 # Register your models here.
 
 @admin.register(Submitted_Challenge)
