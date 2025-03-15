@@ -4,26 +4,34 @@
 LeaderBoard Page
 {% endblock %}
 {% block body_block %}
+<head>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+  </head>
+  
 <h1 style="text-align: center;">Eco Champions</h1>
 
 <div style="text-align: center;">
     <h2>Leaderboard</h2>
 
-    <table class="table table-dark">
+    <table class="leaderboard">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Rank</th>
                 <th scope="col">Username</th>
                 <th scope="col">Points</th>
+              
+
+
             </tr>
         </thead>
         <tbody>
             {% for rank, user, points in ranked_users %}
             <tr>
-                <th scope="row">{{ rank }}</th>
+                <td class="rank-emoji rank-{{ rank }}">{{ rank }}</td>
                 <td>{{ user.user.username }}</td>
                 <td>{{ points }}</td>
             </tr>
+           
             {% endfor %}
         </tbody>
     </table>
