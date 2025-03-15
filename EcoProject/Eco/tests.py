@@ -8,9 +8,9 @@ from Eco.models import User_Challenge_Log_Entry, User, Challenge, UserProfile, L
 # Create your tests here.
 class UserModelTests(TestCase):
     def test_user_creation(self):
-        user = add_user(username="user1", email="user1@example.com", password="password", points=5)
+        user = add_user(username="testuser", email="testuser@example.com", password="password", points=5)
         user_profile = UserProfile.objects.get(user=user)
-        self.assertEqual(user_profile.user.username, 'user1')
+        self.assertEqual(user_profile.user.username, 'testuser')
 
 class ChallengeModelTests(TestCase):
     def test_challenge_creation(self):
@@ -21,9 +21,30 @@ class ChallengeModelTests(TestCase):
     def test_challenge_negative_point_value(self):
         with self.assertRaises(ValidationError):
             challenge = Challenge(title='Test Challenge', description='Test Description', point_value=-10)
-            challenge.full_clean()  # This will trigger the validation
+            challenge.full_clean()  
             challenge.save()
-        
+
+class UserRegistrationTests(TestCase):
+    def test_user_registration_invalid_data(self):
+        response = self.client.post(reverse('Eco:register'), {
+            'username': '',
+            'email': 'invalidemail',
+            'password1': 'password1',
+            'password2': 'password2',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(User.objects.filter(email='invalidemail').exists())
+
+class ChallengeSearchTests(TestCase):
+    def setUp(self):
+        self.challenge1 = add_challenge(title='Clean the Beach', description='Beach cleaning activity', point_value=20)
+        self.challenge2 = add_challenge(title='Plant a Tree', description='Tree planting activity', point_value=15)
+
+    def test_search_challenges(self):
+        response = self.client.get(reverse('Eco:Challenges'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Clean the Beach')
+        self.assertContains(response, 'Plant a Tree')
 
 class UserChallengeLogEntryTests(TestCase):
     def setUp(self):
@@ -58,7 +79,18 @@ class LeaderboardViewTests(TestCase):
         self.assertNotContains(response, r"<td>user1</td>\n                <td>0</td")
         self.assertContains(response, self.user2.username)
 
+class LeaderboardTests(TestCase):
+    def setUp(self):
+        self.user1 = add_user(username='user1', email='user1@example.com', password='password123', points=30)
+        self.user2 = add_user(username='user2', email='user2@example.com', password='password123', points=50)
+        self.client.login(username='user1', password='password123') 
 
+    def test_leaderboard_ordering(self):
+        response = self.client.get(reverse('Eco:LeaderBoard'))
+        self.assertEqual(response.status_code, 200)
+        content = response.content.decode('utf-8')
+        self.assertTrue(content.index('user2') < content.index('user1'))
+        
 def add_user(username, email, password, points):
     user, created = User.objects.get_or_create(username=username, email=email)
     if created:

@@ -28,7 +28,7 @@ class Challenge(models.Model):
     DESCRIPTION_MAX_LENGTH = 750
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
     description = models.TextField(max_length=DESCRIPTION_MAX_LENGTH)
-    point_value = models.IntegerField([MinValueValidator(0)])
+    point_value = models.IntegerField(validators=[MinValueValidator(0)])
 
     likes = models.IntegerField(default=0)
     users = models.ManyToManyField(User, through='User_Challenge_Log_Entry')
