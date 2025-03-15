@@ -16,17 +16,16 @@
         <br />
         {% if user.is_authenticated %}
         <p class="lead fs-6">We make it fun to go green. </p>
-        <p class="lead fs-6">Check out where you rank on the <a href="{% url 'Eco:LeaderBoard' %}"
-                class="green-link">leaderboard</a>.
+        <p class="lead fs-6">Check out where you rank on the <a href="{% url 'Eco:LeaderBoard' %}">leaderboard</a>.
             Are you ready for another <a href="{% url 'Eco:Challenges' %}">challenge</a>?</p>
         <p class="lead fs-6">There is always more you can do. Would you like to have another look at these
-            <a href="{% url 'Eco:Educational Links' %}" class="green-link">educational links</a>?
+            <a href="{% url 'Eco:Educational Links' %}">educational links</a>?
         </p>
         {% else %}
         <p class="lead fs-6">We make it fun to go green. <a href="{% url 'Eco:register' %}">Sign up</a> to join
             one of our <a href="{% url 'Eco:Challenges' %}">challenges</a> today.</p>
         <p class="lead fs-6">Want to know how you can make a difference? Check out these
-            <a href="{% url 'Eco:Educational Links' %}" class="green-link">educational links</a> to learn more.
+            <a href="{% url 'Eco:Educational Links' %}">educational links</a> to learn more.
         </p>
         {% endif %}
         </ul>

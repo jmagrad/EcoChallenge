@@ -10,7 +10,7 @@ from Eco.forms import UserForm, UserProfileForm, SubmittedChallengeForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
-from Eco.models import Challenge, UserProfile, User_Challenge_Log_Entry, Submitted_Challenge
+from Eco.models import Challenge, UserProfile, User_Challenge_Log_Entry, Submitted_Challenge, EducationalLink
 from django.utils import timezone
 from datetime import timedelta
 from django.http import JsonResponse
@@ -170,7 +170,8 @@ def challenges(request):
     return render(request, 'Eco/challenges.html', context=context_dict)
 
 def educational_links(request):
-    return render(request, 'Eco/EducationalLinks.html')
+    educational_links = EducationalLink.objects.all() 
+    return render(request, 'Eco/EducationalLinks.html', {'educational_links': educational_links})
 
 @login_required
 def log_challenge(request, challenge_id):

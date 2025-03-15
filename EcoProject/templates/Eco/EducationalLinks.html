@@ -10,6 +10,7 @@
 
 
 {% block body_block %}
+<<<<<<< HEAD
 
 <h1>Educational Links Page</h1>
 <p>
@@ -86,4 +87,21 @@
        <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </body>
 </html>
+=======
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Educational Links</h1>
+      <p class="lead">Learn more about how you can make a difference every day</p>
+    <div class="educational-links-list">
+    {% for link in educational_links %}
+    <div class="link-item">
+        <h5>{{ link.title }}</h5>
+        <p>{{ link.description }}</p>
+        <p><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></p>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+
+>>>>>>> origin/main
 {% endblock %}

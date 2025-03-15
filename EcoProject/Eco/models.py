@@ -71,3 +71,11 @@ class Leaderboard(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - {self.date_recorded}"
+    
+class EducationalLink(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField(max_length=750)
+    url = models.URLField()
+
+    def __str__(self):
+        return self.title

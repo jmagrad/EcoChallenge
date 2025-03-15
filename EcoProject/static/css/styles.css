@@ -8,10 +8,42 @@ body {
     padding: 0;
 }
 
+nav.nav-masthead {
+    white-space: nowrap; /* To stop nav spilling into new line on resizing*/
+}
+
+/* Shrink both nav and header equally */
+nav.nav-masthead a {
+    font-size: 1.2vw; /* Resizes with screen or browser resizing */
+    padding: 0.2rem 1rem; 
+}
+
+h3 {
+    font-size: 2vw; /* Eco Challenge scales with nav */
+    margin-right: auto; /* To keep nav aligned top right */
+    white-space: nowrap; /* Again, to stop spilling into new line on resizing */
+}
+
+
+@media (max-width: 768px) { /* To deal with resizing browser or viewing on smaller screens */
+    nav.nav-masthead a {
+        font-size: 1.5vw;
+    }
+
+    h3 {
+        font-size: 3vw;
+    }
+}
+
+.jumbotron h1 {
+    text-align: left;
+  }
+
 a,
 a.nav-link {
-    color: white !important;
-    text-decoration: none !important;
+    color: white !important;    
+    font-weight: normal;          
+    text-decoration: none !important; 
 }
 
 a:hover,
@@ -71,6 +103,7 @@ h1 {
     text-align: center;
 }
 
+<<<<<<< HEAD
 /* Styles for links in index.html */
 a.green-link {
     color: green;
@@ -228,3 +261,6 @@ a.green-link {
 .rank-3::before {
     content: "🥉";
 }
+=======
+/* Style for EducationalLinks.html (add any particular CSS styling in due course*/
+>>>>>>> origin/main
