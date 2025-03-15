@@ -79,9 +79,152 @@ a.green-link {
 }
 
 /* Styles for educationaLinks.html */
-.new-text-box {
-    background-color: #ffcc00;
-    padding: 20px;
-    border: 2px solid #000;
-    border-radius: 10px;
+
+.text-box-image {
+    width: 85%; /* Make the image fill the width of the text box */
+    height: auto; /* Maintain the aspect ratio */
+    border-radius: 10px; /* Match the border radius of the text box */
+    margin-bottom: 20px; /* Add some space below the image */
+}
+
+.container2 {
+    display: flex; /* Enable Flexbox */
+    gap: 20px; /* Space between boxes */
+    flex-wrap: wrap; /* Allow boxes to wrap to the next line if they don't fit */
+}
+
+.text-box {
+    background-color: green; /* Light blue background */
+    border: 2px solid #00796b; /* Dark green border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Space inside the box */
+    margin: 20px 0; /* Space outside the box */
+    max-width: 500px; /* Limit the width of the box */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    color: black; /* Set default text color to black */
+}
+
+.text-box h2 {
+    color: black; /* Black heading color */
+    font-size: 24px; /* Larger heading size */
+    margin-bottom: 15px; /* Space below the heading */
+}
+
+.text-box ul {
+    list-style-type: disc; /* Bullet points */
+    padding-left: 20px; /* Indent the list */
+}
+
+.text-box ul li {
+    margin-bottom: 10px; /* Space between list items */
+    font-size: 16px; /* Text size */
+    line-height: 1.6; /* Improve readability */
+    color: black; /* Black text color */
+}
+
+.text-box a {
+    color: black; /* Black link color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold links */
+}
+
+.text-box a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+
+.bold-green {
+    font-weight: bold;
+    color: green;
+}
+
+
+.text-box2 {
+    background-color: green; /* Light blue background */
+    border: 2px solid #00796b; /* Dark green border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px; /* Space inside the box */
+    margin: 20px 0; /* Space outside the box */
+    max-width: 400px; /* Limit the width of the box */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    color: black; /* Set default text color to black */
+}
+
+.text-box h2 {
+    color: black; /* Black heading color */
+    font-size: 24px; /* Larger heading size */
+    margin-bottom: 15px; /* Space below the heading */
+}
+
+.text-box ul {
+    list-style-type: disc; /* Bullet points */
+    padding-left: 20px; /* Indent the list */
+}
+
+.text-box ul li {
+    margin-bottom: 10px; /* Space between list items */
+    font-size: 16px; /* Text size */
+    line-height: 1.6; /* Improve readability */
+    color: black; /* Black text color */
+}
+
+.text-box a {
+    color: black; /* Black link color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold links */
+}
+
+.text-box a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+/* Add this to your CSS file or <style> block */
+.leaderboard {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.leaderboard th, .leaderboard td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+}
+
+.leaderboard th {
+    background-color: #333;
+    color: #fff;
+}
+
+.leaderboard tr:hover {
+    background-color: #444;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #555;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 10px;
+}
+
+.progress {
+    height: 100%;
+    background-color: #4caf50;
+}
+
+.rank-emoji {
+    font-size: 1.2em;
+}
+
+/* Add emojis for top 3 ranks */
+.rank-1::before {
+    content: "🥇";
+}
+
+.rank-2::before {
+    content: "🥈";
+}
+
+.rank-3::before {
+    content: "🥉";
 }
