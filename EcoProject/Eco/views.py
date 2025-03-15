@@ -18,6 +18,7 @@ from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 
 
+
 def index(request):
     # Create context dictionary
     context_dict = {
@@ -170,8 +171,20 @@ def challenges(request):
     return render(request, 'Eco/challenges.html', context=context_dict)
 
 def educational_links(request):
-    educational_links = EducationalLink.objects.all() 
+    educational_links = EducationalLink.objects.all()
     return render(request, 'Eco/EducationalLinks.html', {'educational_links': educational_links})
+
+def search_educational_links(request):
+    query = request.GET.get('q') 
+    if query:
+        educational_links = EducationalLink.objects.filter(
+            Q(title__icontains=query) | 
+            Q(description__icontains=query)
+        )
+    else:
+        educational_links = EducationalLink.objects.all()
+
+    return render(request, 'Eco/EducationalLinks.html', {'educational_links': educational_links, 'query': query})
 
 @login_required
 def log_challenge(request, challenge_id):

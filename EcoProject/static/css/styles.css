@@ -41,9 +41,8 @@ h3 {
 
 a,
 a.nav-link {
-    color: white !important;    
-    font-weight: normal;          
-    text-decoration: none !important; 
+    color: white !important;
+    text-decoration: none !important;
 }
 
 a:hover,
@@ -103,7 +102,6 @@ h1 {
     text-align: center;
 }
 
-<<<<<<< HEAD
 /* Styles for links in index.html */
 a.green-link {
     color: green;
@@ -113,56 +111,64 @@ a.green-link {
 
 /* Styles for educationaLinks.html */
 
+.quote{
+    font-weight: bold;
+    color:green; 
+    font-size: large;
+  }
+
 .text-box-image {
-    width: 85%; /* Make the image fill the width of the text box */
-    height: auto; /* Maintain the aspect ratio */
-    border-radius: 10px; /* Match the border radius of the text box */
-    margin-bottom: 20px; /* Add some space below the image */
+    width: 80%; 
+    height: auto; 
+    border-radius: 20px; 
+    margin-bottom: 20px; 
 }
 
 .container2 {
-    display: flex; /* Enable Flexbox */
-    gap: 20px; /* Space between boxes */
-    flex-wrap: wrap; /* Allow boxes to wrap to the next line if they don't fit */
+    display: flex; 
+    flex-direction:row;
+    gap: 30px;
+    flex-wrap: wrap;
+   
 }
 
 .text-box {
-    background-color: green; /* Light blue background */
-    border: 2px solid #00796b; /* Dark green border */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Space inside the box */
-    margin: 20px 0; /* Space outside the box */
-    max-width: 500px; /* Limit the width of the box */
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    color: black; /* Set default text color to black */
-}
+    background-color: green; 
+    border: 2px solid #00796b;
+    border-radius: 10px; 
+    padding: 20px; 
+    margin: 20px 0; 
+    max-width: 2000px; 
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); 
+    color: black;
+} 
 
 .text-box h2 {
-    color: black; /* Black heading color */
-    font-size: 24px; /* Larger heading size */
-    margin-bottom: 15px; /* Space below the heading */
+    color: black; 
+    font-size: 24px;
+    margin-bottom: 15px; 
 }
 
 .text-box ul {
-    list-style-type: disc; /* Bullet points */
-    padding-left: 20px; /* Indent the list */
+    list-style-type: disc;
+    padding-left: 20px; 
 }
 
 .text-box ul li {
-    margin-bottom: 10px; /* Space between list items */
-    font-size: 16px; /* Text size */
-    line-height: 1.6; /* Improve readability */
-    color: black; /* Black text color */
+    margin-bottom: 10px; 
+    font-size: 16px; 
+    line-height: 1.6; 
+    color: black;
 }
 
 .text-box a {
-    color: black; /* Black link color */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold; /* Bold links */
+    color: black; 
+    text-decoration: none; 
+    font-weight: bold;
 }
 
 .text-box a:hover {
-    text-decoration: underline; /* Underline on hover */
+    text-decoration: underline; 
 }
 
 
@@ -171,46 +177,45 @@ a.green-link {
     color: green;
 }
 
-
 .text-box2 {
-    background-color: green; /* Light blue background */
-    border: 2px solid #00796b; /* Dark green border */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Space inside the box */
-    margin: 20px 0; /* Space outside the box */
-    max-width: 400px; /* Limit the width of the box */
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    color: black; /* Set default text color to black */
+    background-color: green; 
+    border: 2px solid #00796b;
+    border-radius: 10px; 
+    padding: 20px;
+    margin: 20px 0;
+    max-width: 500px; 
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    color: black; 
 }
 
 .text-box h2 {
-    color: black; /* Black heading color */
-    font-size: 24px; /* Larger heading size */
-    margin-bottom: 15px; /* Space below the heading */
+    color: black;
+    font-size: 24px; 
+    margin-bottom: 15px; 
 }
 
 .text-box ul {
-    list-style-type: disc; /* Bullet points */
-    padding-left: 20px; /* Indent the list */
+    list-style-type: disc;
+    padding-left: 20px;
 }
 
 .text-box ul li {
-    margin-bottom: 10px; /* Space between list items */
-    font-size: 16px; /* Text size */
-    line-height: 1.6; /* Improve readability */
-    color: black; /* Black text color */
+    margin-bottom: 10px; 
+    font-size: 16px; 
+    line-height: 1.6; 
+    color: black;
 }
 
 .text-box a {
-    color: black; /* Black link color */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold; /* Bold links */
+    color: black;
+    text-decoration: none;
+        font-weight: bold;
 }
 
 .text-box a:hover {
-    text-decoration: underline; /* Underline on hover */
+    text-decoration: underline; 
 }
-/* Add this to your CSS file or <style> block */
+
 .leaderboard {
     width: 80%;
     margin: 0 auto;
@@ -249,7 +254,7 @@ a.green-link {
     font-size: 1.2em;
 }
 
-/* Add emojis for top 3 ranks */
+
 .rank-1::before {
     content: "🥇";
 }
@@ -261,6 +266,3 @@ a.green-link {
 .rank-3::before {
     content: "🥉";
 }
-=======
-/* Style for EducationalLinks.html (add any particular CSS styling in due course*/
->>>>>>> origin/main

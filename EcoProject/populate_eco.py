@@ -32,7 +32,7 @@ def populate():
 
     # Add eductional links
     # General Sustainability & Green Living
-    add_educational_link('Treehugger', 'Covers everything from sustainable living and design to eco-friendly technology and energy.', 'https://www.treehugger.com/')
+    add_educational_link('Treehugger', 'Covers everything from sustainable living and design to eco-friendly technology and energy.', 'https://www.treehugger.com/' )
     add_educational_link('Earth911', 'Offers recycling guides, sustainability tips, and eco-conscious product recommendations.', 'https://earth911.com/')
 
     # Zero Waste & Minimalism
@@ -46,6 +46,15 @@ def populate():
     add_educational_link('Energy Sage', 'Helps compare solar panel options and find sustainable energy solutions.', 'https://www.energysage.com/')
     add_educational_link('Green Building Advisor', 'For those interested in sustainable architecture and green home improvements.', 'https://www.greenbuildingadvisor.com/')
     add_educational_link('Mother Earth News', 'A classic resource for homesteading, gardening, and sustainable living.', 'https://www.motherearthnews.com/')
+
+    #Ecofriendly lifestyle 
+    add_educational_link('Ecofriendly lifestyle', '20 Steps to Ecofriendly lifestyle', 'https://www.goodenergy.co.uk/blog/the-ultimate-20-step-guide-to-eco-friendly-living/')
+    add_educational_link(' Live more sustainably', '20 Ways to live more sustainably', 'https://www.biologicaldiversity.org/programs/population_and_sustainability/sustainability/live_more_sustainably.html')
+
+    #Recycling 
+    add_educational_link('Recycling Practises', 'Advantages of Recycling', 'https://www.wastemanaged.co.uk/our-news/recycling/advantages-of-recycling/')
+    add_educational_link('Plastic Recycling', 'How does plastic recycling help the environment?', 'https://www.buxtonwater.co.uk/articles/community-and-environment/plastic-recycling')
+
 
     # Log user challenges
     log_user_challenge(user1, commute_challenge,datetime.now() - timedelta(days=14))
