@@ -80,6 +80,9 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
+    if registered:
+        return redirect('Eco:login')  # Redirect to login page after successful registration
+
     # Render the template depending on the context.
     return render(request,'Eco/register.html',
                   context = {'user_form': user_form,
@@ -144,7 +147,7 @@ def challenges(request):
     if query:
         challenges_list = Challenge.objects.filter(
             Q(title__icontains=query) |
-            Q(description__icontains=query)
+            Q(description__icontains(query))
         )
     else:
         challenges_list = Challenge.objects.all()

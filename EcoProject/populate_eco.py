@@ -20,15 +20,16 @@ def populate():
         user_profile.save()
 
     # Create users
-    user1 = add_user('user1', 'user1@example.com', 'password123', 0)
-    user2 = add_user('user2', 'user2@example.com', 'password123', 0)
-    user3 = add_user('user3', 'user3@example.com', 'password123', 0)
+    user1 = add_user('Samantha', 'Samantha@example.com', 'password123', 0)
+    user2 = add_user('Bernard', 'Bernard@example.com', 'password123', 0)
+    user3 = add_user('Fernando', 'Fernando@example.com', 'password123', 0)
 
     # Create challenges
     commute_challenge = add_challenge('Commute', 'Walk or take public transit to work today.', 5)
     food_waste_challenge = add_challenge('Food Waste', 'Compost all of your food this week.', 15)
     litter_pickup_challenge = add_challenge('Litter Pickup', 'Spend 30 minutes picking up litter in a public space', 10)
     meatless_week_challenge = add_challenge('Meatless Week', 'Go a week without eating meat.', 15)
+    plant_tree_challenge = add_challenge('Plant a Tree', 'Plant a tree in your backyard or community.', 20)
 
     # Add eductional links
     # General Sustainability & Green Living
