@@ -71,6 +71,27 @@ $(document).ready(function () {
     $('select[name="timeframe"]').change(function () {
         $(this).closest('form').submit();
     });
+
+    $('#search-input').on('input', function () {
+        const query = $(this).val();
+
+        $.ajax({
+            url: '{% url "Eco:search_educational_links" %}',
+            data: {
+                'q': query
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                data.forEach(function (link) {
+                    const newItem = `<li><a href="${link.fields.url}" target="_blank"><strong>${link.fields.title}</strong></a> – ${link.fields.description}</li>`;
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX Error: " + status + error);
+            }
+        });
+    });
 });
 
 $(document).ajaxSend(function (event, xhr, settings) {

@@ -12,54 +12,55 @@ Educational Links
 
 {% block body_block %}
 <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-4">Educational Links</h1>
-      <p class="lead">Learn more about how you can make a difference every day</p>
-      <p class = " quote">The ordinary situations are the best circumstances for good actions - Jean Paul Richter </p>
-    </div>
+  <div class="container">
+    <h1 class="display-4">Educational Links</h1>
+    <p class="lead">Learn more about how you can make a difference every day</p>
+    <p class=" quote">The ordinary situations are the best circumstances for good actions - Jean Paul Richter </p>
+  </div>
 </div>
 
 <div class="container mt-4">
   <form method="get" action="{% url 'Eco:search_educational_links' %}" class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search educational links..." aria-label="Search" value="{{ query }}">
+    <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search educational links..."
+      aria-label="Search" value="{{ query }}">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
 </div>
-  <div class="text-box">
-    <h2>Interesting facts about the environment and sustainability</h2>
-    <div class="row">
-      <!-- Card 1 -->
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <img src="{% static 'images/paperwaste.jpg' %}" class="card-img-top" alt="paperwaste">
-          <div class="card-body">
-            <h5 class="card-title">Paper Waste</h5>
-            <p class="card-text">Paper accounts for 26% of landfill.</p>
-          </div>
+<div class="text-box">
+  <h2>Interesting facts about the environment and sustainability</h2>
+  <div class="row">
+    <!-- Card 1 -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img src="{% static 'images/paperwaste.jpg' %}" class="card-img-top" alt="paperwaste">
+        <div class="card-body">
+          <h5 class="card-title">Paper Waste</h5>
+          <p class="card-text">Paper accounts for 26% of landfill.</p>
         </div>
       </div>
-      <!-- Card 2 -->
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <img src="{% static 'images/bottles.jpg' %}" class="card-img-top" alt="Bottles">
-          <div class="card-body">
-            <h5 class="card-title">Plastic Bottles</h5>
-            <p class="card-text">In the UK, we use 7.7 billion plastic bottles each year.</p>
-          </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img src="{% static 'images/bottles.jpg' %}" class="card-img-top" alt="Bottles">
+        <div class="card-body">
+          <h5 class="card-title">Plastic Bottles</h5>
+          <p class="card-text">In the UK, we use 7.7 billion plastic bottles each year.</p>
         </div>
       </div>
-      <!-- Card 3 -->
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <img src="{% static 'images/bottlesatbeach.jpg' %}" class="card-img-top" alt="Bottles at Beach">
-          <div class="card-body">
-            <h5 class="card-title">Plastic in Oceans</h5>
-            <p class="card-text">8 million tonnes of the world's plastics end up in our oceans.</p>
-          </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img src="{% static 'images/bottlesatbeach.jpg' %}" class="card-img-top" alt="Bottles at Beach">
+        <div class="card-body">
+          <h5 class="card-title">Plastic in Oceans</h5>
+          <p class="card-text">8 million tonnes of the world's plastics end up in our oceans.</p>
         </div>
       </div>
-     <!-- Card 3 -->
-     <div class="col-md-4 mb-4">
+    </div>
+    <!-- Card 3 -->
+    <div class="col-md-4 mb-4">
       <div class="card h-100">
         <img src="{% static 'images/trees.jpg' %}" class="card-img-top" alt="trees">
         <div class="card-body">
@@ -68,8 +69,8 @@ Educational Links
         </div>
       </div>
     </div>
-     <!-- Card 3 -->
-     <div class="col-md-4 mb-4">
+    <!-- Card 3 -->
+    <div class="col-md-4 mb-4">
       <div class="card h-100">
         <img src="{% static 'images/water.jpg' %}" class="card-img-top" alt="Bottles at Beach">
         <div class="card-body">
@@ -78,30 +79,31 @@ Educational Links
         </div>
       </div>
     </div>
-     
-    
-      <!-- Card 5 -->
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <img src="{% static 'images/caremissions.jpg' %}" class="card-img-top" alt="cars">
-          <div class="card-body">
-            <h5 class="card-title">Carbon Emissions</h5>
-            <p class="card-text">In 2019, cars accounted for 19% of the UK's carbon emissions.</p>
-          </div>
+
+
+    <!-- Card 5 -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img src="{% static 'images/caremissions.jpg' %}" class="card-img-top" alt="cars">
+        <div class="card-body">
+          <h5 class="card-title">Carbon Emissions</h5>
+          <p class="card-text">In 2019, cars accounted for 19% of the UK's carbon emissions.</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="container2">
+</div>
+<div class="container2">
   <div class="text-box2">
     <h2>General Sustainability & Green Living</h2>
     <ul>
       <img class="text-box-image" src="{% static 'images/greenliving.jpg' %}" alt="recycling">
       {% for link in educational_links %}
-          <li>
-            <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
-          </li>
-      
+      {% if link.category == 'general' %}
+      <li>
+        <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
+      </li>
+      {% endif %}
       {% endfor %}
     </ul>
   </div>
@@ -111,10 +113,11 @@ Educational Links
     <ul>
       <img class="text-box-image" src="{% static 'images/bottles.jpg' %}" alt="bottles">
       {% for link in educational_links %}
-          <li>
-            <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
-          </li>
-      
+      {% if link.category == 'zero_waste' %}
+      <li>
+        <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
+      </li>
+      {% endif %}
       {% endfor %}
     </ul>
   </div>
@@ -124,9 +127,11 @@ Educational Links
     <ul>
       <img class="text-box-image" src="{% static 'images/ecofriendlyshop.jpg' %}" alt="bottles">
       {% for link in educational_links %}
-          <li>
-            <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
-          </li>
+      {% if link.category == 'ethical_brands' %}
+      <li>
+        <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
+      </li>
+      {% endif %}
       {% endfor %}
     </ul>
   </div>
@@ -136,23 +141,25 @@ Educational Links
     <ul>
       <img class="text-box-image" src="{% static 'images/solarpanels.jpg' %}" alt="bottles">
       {% for link in educational_links %}
-    
-          <li>
-            <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
-          </li>
+      {% if link.category == 'green_energy' %}
+      <li>
+        <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
+      </li>
+      {% endif %}
       {% endfor %}
     </ul>
   </div>
 
   <div class="text-box2">
-    <h2>Ecofriendly lifestyle</h2>
+    <h2>Ecofriendly Lifestyle</h2>
     <ul>
       <img class="text-box-image" src="{% static 'images/ecofriendlylifestyle.jpg' %}" alt="bottles">
       {% for link in educational_links %}
-    
-          <li>
-            <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
-          </li>
+      {% if link.category == 'lifestyle' %}
+      <li>
+        <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
+      </li>
+      {% endif %}
       {% endfor %}
     </ul>
   </div>
@@ -162,40 +169,18 @@ Educational Links
     <ul>
       <img class="text-box-image" src="{% static 'images/recycling.jpg' %}" alt="bottles">
       {% for link in educational_links %}
-    
-          <li>
-            <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
-          </li>
+      {% if link.category == 'recycling' %}
+      <li>
+        <a href="{{ link.url }}" target="_blank"><strong>{{ link.title }}</strong></a> – {{ link.description }}
+      </li>
+      {% endif %}
       {% endfor %}
     </ul>
   </div>
-  </div>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script> 
-// AJAX search function 
-  $(document).ready(function() {
-    $('#search-input').on('input', function() {
-      const query = $(this).val();  
+<script src="{% static 'js/scripts.js' %}"></script>
 
-      $.ajax({
-        url: '{% url "Eco:search_educational_links" %}',  
-        data: {
-          'q': query  
-        },
-        dataType: 'json',
-        success: function(data) {
-        
-          data.forEach(function(link) {
-            const newItem = `<li><a href="${link.fields.url}" target="_blank"><strong>${link.fields.title}</strong></a> – ${link.fields.description}</li>`;
-          });
-        },
-        error: function(xhr, status, error) {
-          console.error("AJAX Error: " + status + error);  
-        }
-      });
-    });
-  });
-</script>
 {% endblock %}

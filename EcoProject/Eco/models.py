@@ -73,9 +73,18 @@ class Leaderboard(models.Model):
         return f"{self.user.username} - {self.date_recorded}"
     
 class EducationalLink(models.Model):
+    CATEGORY_CHOICES = [
+        ('general', 'General Sustainability & Green Living'),
+        ('zero_waste', 'Zero Waste & Minimalism'),
+        ('ethical_brands', 'Eco-Friendly Shopping & Ethical Brands'),
+        ('green_energy', 'Green Energy & Sustainable Homes'),
+        ('lifestyle', 'Ecofriendly Lifestyle'),
+        ('recycling', 'Recycling'),
+    ]
     title = models.CharField(max_length=255)
     description = models.TextField()
     url = models.URLField()
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
 
     def __str__(self):
         return self.title

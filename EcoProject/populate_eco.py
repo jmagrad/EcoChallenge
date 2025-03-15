@@ -33,28 +33,28 @@ def populate():
 
     # Add eductional links
     # General Sustainability & Green Living
-    add_educational_link('Treehugger', 'Covers everything from sustainable living and design to eco-friendly technology and energy.', 'https://www.treehugger.com/' )
-    add_educational_link('Earth911', 'Offers recycling guides, sustainability tips, and eco-conscious product recommendations.', 'https://earth911.com/')
+    add_educational_link('Treehugger', 'Covers everything from sustainable living and design to eco-friendly technology and energy.', 'https://www.treehugger.com/','general')
+    add_educational_link('Earth911', 'Offers recycling guides, sustainability tips, and eco-conscious product recommendations.', 'https://earth911.com/','general')
 
     # Zero Waste & Minimalism
-    add_educational_link('Going Zero Waste', 'Offers practical tips on living waste-free and reducing your environmental footprint.', 'https://www.goingzerowaste.com/')
+    add_educational_link('Going Zero Waste', 'Offers practical tips on living waste-free and reducing your environmental footprint.', 'https://www.goingzerowaste.com/','zero_waste')
 
     # Eco-Friendly Shopping & Ethical Brands
-    add_educational_link('Ethical Consumer', 'A guide to ethical products, brands, and sustainable choices.', 'https://www.ethicalconsumer.org/')
-    add_educational_link('Sustainable Jungle', 'Reviews eco-friendly products, sustainable fashion, and ethical brands.', 'https://www.sustainablejungle.com/')
+    add_educational_link('Ethical Consumer', 'A guide to ethical products, brands, and sustainable choices.', 'https://www.ethicalconsumer.org/','ethical_brands')
+    add_educational_link('Sustainable Jungle', 'Reviews eco-friendly products, sustainable fashion, and ethical brands.', 'https://www.sustainablejungle.com/','ethical_brands')
 
     # Green Energy & Sustainable Homes
-    add_educational_link('Energy Sage', 'Helps compare solar panel options and find sustainable energy solutions.', 'https://www.energysage.com/')
-    add_educational_link('Green Building Advisor', 'For those interested in sustainable architecture and green home improvements.', 'https://www.greenbuildingadvisor.com/')
-    add_educational_link('Mother Earth News', 'A classic resource for homesteading, gardening, and sustainable living.', 'https://www.motherearthnews.com/')
+    add_educational_link('Energy Sage', 'Helps compare solar panel options and find sustainable energy solutions.', 'https://www.energysage.com/','green_energy')
+    add_educational_link('Green Building Advisor', 'For those interested in sustainable architecture and green home improvements.', 'https://www.greenbuildingadvisor.com/','green_energy')
+    add_educational_link('Mother Earth News', 'A classic resource for homesteading, gardening, and sustainable living.', 'https://www.motherearthnews.com/','green_energy')
 
     #Ecofriendly lifestyle 
-    add_educational_link('Ecofriendly lifestyle', '20 Steps to Ecofriendly lifestyle', 'https://www.goodenergy.co.uk/blog/the-ultimate-20-step-guide-to-eco-friendly-living/')
-    add_educational_link(' Live more sustainably', '20 Ways to live more sustainably', 'https://www.biologicaldiversity.org/programs/population_and_sustainability/sustainability/live_more_sustainably.html')
+    add_educational_link('Ecofriendly lifestyle', '20 Steps to Ecofriendly lifestyle', 'https://www.goodenergy.co.uk/blog/the-ultimate-20-step-guide-to-eco-friendly-living/','lifestyle')
+    add_educational_link(' Live more sustainably', '20 Ways to live more sustainably', 'https://www.biologicaldiversity.org/programs/population_and_sustainability/sustainability/live_more_sustainably.html','lifestyle')
 
     #Recycling 
-    add_educational_link('Recycling Practises', 'Advantages of Recycling', 'https://www.wastemanaged.co.uk/our-news/recycling/advantages-of-recycling/')
-    add_educational_link('Plastic Recycling', 'How does plastic recycling help the environment?', 'https://www.buxtonwater.co.uk/articles/community-and-environment/plastic-recycling')
+    add_educational_link('Recycling Practises', 'Advantages of Recycling', 'https://www.wastemanaged.co.uk/our-news/recycling/advantages-of-recycling/','recycling')
+    add_educational_link('Plastic Recycling', 'How does plastic recycling help the environment?', 'https://www.buxtonwater.co.uk/articles/community-and-environment/plastic-recycling','recycling')
 
 
     # Log user challenges
@@ -125,8 +125,8 @@ def update_user_points(user):
     user_profile.points = User_Challenge_Log_Entry.objects.filter(user=user).count() * 15  # Assuming each challenge is worth 15 points
     user_profile.save()
 
-def add_educational_link(title, description, url):
-    link, created =  EducationalLink.objects.get_or_create(title=title, description=description, url=url)
+def add_educational_link(title, description, url,category):
+    link, created =  EducationalLink.objects.get_or_create(title=title, description=description, url=url, category = category)
     link.save()
     return link
 
