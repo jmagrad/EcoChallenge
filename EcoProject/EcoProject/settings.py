@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-=wb07z27rmi$53jq4fcg^5j(=@=cj3sp!tovb0z3)f(b7f=m)r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ecochallenge.uk','jmagradey.pythonanywhere.com']
+ALLOWED_HOSTS = ['ecochallenge.uk','jmagradey.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
